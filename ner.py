@@ -14,11 +14,9 @@ def extract_keywords(query):
     entities = ner_pipeline(query)
 
     # Initialize containers for extracted data
-    product_type = None
-    price = None
-    features = []
-
-    # Regex patterns for price and specifications
+    keywords = []
+    
+    # Regex patterns for price and features
     price_patterns = [
         r"(under|within|below)\s?₹?\d+k?",  # e.g., "under 50k"
         r"₹?\d{1,3}[kK]?",                  # e.g., "50k", "₹50000"
@@ -32,26 +30,34 @@ def extract_keywords(query):
     ]
 
     # Post-process NER entities
+    temp_feature = ""
     for ent in entities:
         word = ent['word'].strip()
-        if ent['entity'].startswith("B-MISC") and product_type is None:
-            product_type = word  # Capture product type (e.g., phone, laptop)
-        elif any(re.search(pat, word.lower()) for pat in price_patterns):
-            price = word  # Capture price or related words
+
+        # Check if the word matches product types or features
+        if ent['entity'].startswith("B-MISC") and len(keywords) == 0:
+            keywords.append(word)  # Add product type (e.g., phone, laptop)
+        
+        # Check for features (e.g., "8GB RAM", "50MP camera")
         elif any(re.search(pat, word.lower()) for pat in feature_patterns):
-            features.append(word)  # Capture technical specifications
+            if temp_feature:
+                temp_feature += " " + word
+            else:
+                temp_feature = word
+        elif any(re.search(pat, word.lower()) for pat in price_patterns):
+            keywords.append(word)  # Add price-related keywords
+        
+        # If feature is complete, add it as one keyword
+        if temp_feature and word.lower() not in temp_feature.lower():
+            keywords.append(temp_feature)  # e.g., "8GB RAM", "50MP camera"
+            temp_feature = ""
 
-    # Post-processing for price and feature merging
-    if price:
-        # Normalize price (e.g., "50k" -> "50000")
-        price = re.sub(r"k", "000", price.lower()).replace("₹", "")
+    # In case there's any leftover feature at the end of the query
+    if temp_feature:
+        keywords.append(temp_feature)
 
-    # Return structured data
-    return {
-        "Product Type": product_type or "Unknown",
-        "Price": price or "Unknown",
-        "Features": list(set(features)),  # Remove duplicates
-    }
+    # Return the list of keywords
+    return list(set(keywords))  # Removing duplicates
 
 # Example Queries
 queries = [
@@ -63,5 +69,5 @@ queries = [
 # Run extraction on each query
 for query in queries:
     print(f"Query: {query}")
-    print("Extracted Information:", extract_keywords(query))
+    print("Extracted Keywords:", extract_keywords(query))
     print("-" * 50)
