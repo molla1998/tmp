@@ -1,7 +1,6 @@
 import spacy
 import re
 import streamlit as st
-from collections import Counter
 
 # Load spaCy model
 nlp = spacy.load("en_core_web_sm")
@@ -27,15 +26,15 @@ def extract_keywords(query):
     # Extract noun chunks (multi-word phrases)
     chunk_keywords = [chunk.text for chunk in doc.noun_chunks]
 
-    # Combine individual keywords & remove duplicates
-    individual_keywords = list(set(ner_keywords + pos_keywords + spec_keywords))
-    noun_chunk_keywords = list(set(chunk_keywords))
+    # Combine & sort all keywords (largest length first)
+    all_keywords = list(set(ner_keywords + pos_keywords + spec_keywords + chunk_keywords))
+    all_keywords.sort(key=len, reverse=True)  # Sort by length, longest first
 
-    return individual_keywords, noun_chunk_keywords
+    return all_keywords
 
 # Streamlit App
 st.title("🔍 Searchable Keyword Extractor")
-st.markdown("Extracts important **keywords** and **multi-word phrases** from a query.")
+st.markdown("Extracts important **searchable keywords** from a query.")
 
 # Input Box
 user_input = st.text_area("Enter your query:", "Show me a Samsung Galaxy S phone with 8GB RAM, 120Hz display, and 50MP camera.")
@@ -43,14 +42,15 @@ user_input = st.text_area("Enter your query:", "Show me a Samsung Galaxy S phone
 # Submit Button
 if st.button("Extract Keywords"):
     if user_input.strip():
-        keywords, noun_chunks = extract_keywords(user_input)
-        
-        # Display Results
-        st.subheader("📝 Extracted Keywords:")
-        st.write(", ".join(keywords) if keywords else "No individual keywords found.")
+        keywords = extract_keywords(user_input)
 
-        st.subheader("🔗 Extracted Noun Chunks (Multi-word phrases):")
-        st.write(", ".join(noun_chunks) if noun_chunks else "No noun chunks found.")
+        if keywords:
+            # Display Results with colored formatting
+            st.subheader("📝 Extracted Keywords:")
+            colored_keywords = " ".join([f'<span style="color:#0078FF; font-size:16px;">{kw}</span>' for kw in keywords])
+            st.markdown(colored_keywords, unsafe_allow_html=True)
+        else:
+            st.warning("No keywords found.")
     else:
         st.warning("⚠️ Please enter a query.")
 
