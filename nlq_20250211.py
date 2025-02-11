@@ -4,7 +4,7 @@ from collections import Counter
 import numpy as np
 
 # Load spaCy model
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_md")
 
 # Define POS tags to exclude
 EXCLUDE_POS = {"PUNCT", "SYM", "DET", "CCONJ", "PART", "SCONJ"}
