@@ -1,6 +1,6 @@
 import csv
 import json
-import itertools
+import random
 
 # Load sentence templates
 TEMPLATE_FILE = "/mnt/data/sentence_templates.csv"
@@ -18,20 +18,36 @@ with open(TEMPLATE_FILE, "r", encoding="utf-8") as file:
     next(reader)  # Skip header
     templates = [row[0] for row in reader]
 
-# Generate dataset with all possible combinations
-training_data = []
-for template, phone_model, memory, price in itertools.product(templates, PHONE_MODELS, MEMORY_SIZES, PRICES):
-    # Replace placeholders
-    sentence = template.replace("{PHONE_MODEL}", phone_model)
-    sentence = sentence.replace("{MEMORY}", memory)
-    sentence = sentence.replace("{PRICE}", price)
+# Ensure all values appear at least once
+base_combinations = [
+    (random.choice(templates), model, memory, price)
+    for model in PHONE_MODELS
+    for memory in MEMORY_SIZES
+    for price in PRICES
+]
 
-    # Define entity positions
+# Generate additional records up to 200k
+additional_samples = [
+    (random.choice(templates), random.choice(PHONE_MODELS), random.choice(MEMORY_SIZES), random.choice(PRICES))
+    for _ in range(200000 - len(base_combinations))
+]
+
+# Final dataset
+samples = base_combinations + additional_samples
+random.shuffle(samples)  # Shuffle for randomness
+
+# Create training data
+training_data = []
+for template, phone_model, memory, price in samples:
+    sentence = template.replace("{PHONE_MODEL}", phone_model).replace("{MEMORY}", memory).replace("{PRICE}", price)
+
+    # Find entity positions
     entities = []
     for label, value in [("PHONE_MODEL", phone_model), ("MEMORY", memory), ("PRICE", price)]:
         start = sentence.find(value)
-        if start != -1:
-            entities.append((start, start + len(value), label))
+        end = start + len(value)
+        if start != -1 and all(not (s < end and start < e) for s, e, _ in entities):  # Avoid overlap
+            entities.append((start, end, label))
 
     training_data.append((sentence, {"entities": entities}))
 
