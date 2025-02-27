@@ -22,6 +22,18 @@ def plot_label_distribution(csv_path):
     plt.xticks(rotation=0)
     plt.grid(axis="y", linestyle="--", alpha=0.7)
 
+    # Add count labels on top of bars
+    for bar in bars.patches:
+        plt.text(
+            bar.get_x() + bar.get_width() / 2,  # X position (center of bar)
+            bar.get_height(),  # Y position (top of bar)
+            str(int(bar.get_height())),  # Label (count)
+            ha="center",  # Horizontal alignment
+            va="bottom",  # Vertical alignment
+            fontsize=12,
+            fontweight="bold"
+        )
+        
     # Show the plot
     plt.show()
 
