@@ -15,7 +15,7 @@ def plot_label_distribution(csv_path):
 
     # Plot bar graph
     plt.figure(figsize=(6, 4))
-    label_counts.plot(kind="bar", color=["blue", "green"])
+    bars = label_counts.plot(kind="bar", color=["blue", "green"])
     plt.xlabel("Labels")
     plt.ylabel("Count")
     plt.title("KH vs NLQ Label Distribution")
@@ -33,7 +33,7 @@ def plot_label_distribution(csv_path):
             fontsize=12,
             fontweight="bold"
         )
-        
+
     # Show the plot
     plt.show()
 
