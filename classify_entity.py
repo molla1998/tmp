@@ -8,11 +8,10 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 # Load model on GPU if available
 model = GLiNER.from_pretrained("numind/NuNER_Zero").to(device)
 
-# Load queries and labels from CSV
+# Load CSV files
 queries_df = pd.read_csv("queries.csv")  # Column name assumed: "query"
 labels_df = pd.read_csv("labels.csv")    # Column name assumed: "label"
 
-# Extract lists
 queries = queries_df["query"].tolist()
 labels = labels_df["label"].tolist()
 
@@ -26,7 +25,7 @@ def merge_entities(entities, text):
         if next_entity["label"] == current["label"] and (
             next_entity["start"] == current["end"] + 1 or next_entity["start"] == current["end"]
         ):
-            current["text"] = text[current["start"] : next_entity["end"]].strip()
+            current["text"] = text[current["start"]: next_entity["end"]].strip()
             current["end"] = next_entity["end"]
         else:
             merged.append(current)
@@ -34,29 +33,23 @@ def merge_entities(entities, text):
     merged.append(current)
     return merged
 
-# Prepare results storage
+# Store results
 results = []
 
 # Process labels one at a time
 for label in labels:
-    entity_count = 0
-    batch_size = 32  # Adjust based on GPU memory
-    num_batches = (len(queries) + batch_size - 1) // batch_size  # Ensure all queries are covered
+    entity_count = 0  # Count how many queries contain this label
 
-    # Process in batches
-    for i in range(num_batches):
-        batch_queries = queries[i * batch_size : (i + 1) * batch_size]
-        
-        # Run entity recognition on batch
-        batch_entities = model.predict_entities(batch_queries, [label.lower()])
+    # Process queries one by one (NO BATCHING)
+    for query in queries:
+        entities = model.predict_entities(query, [label.lower()])
+        merged_entities = merge_entities(entities, query)
 
-        # Collect results
-        for query, entities in zip(batch_queries, batch_entities):
-            merged_entities = merge_entities(entities, query)
+        if merged_entities:
+            entity_count += 1  # Count queries where entity is found
 
-            for entity in merged_entities:
-                results.append([query, label, entity["text"], entity["start"], entity["end"]])
-                entity_count += 1
+        for entity in merged_entities:
+            results.append([query, label, entity["text"], entity["start"], entity["end"]])
 
     # Print entity count per label
     print(f"Entity '{label}' found in {entity_count} queries.")
