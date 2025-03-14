@@ -3,10 +3,14 @@ import matplotlib.pyplot as plt
 def plot_precision(models, values):
     colors = ['blue', 'green', 'red', 'purple', 'orange']  # Different colors for each bar
     
-    plt.bar(models, values, color=colors)
+    bars = plt.bar(models, values, color=colors)
     plt.xlabel("Models")
     plt.ylabel("Magnitude")
     plt.title("Precision")
+    
+    # Add value labels on top of each bar
+    for bar, value in zip(bars, values):
+        plt.text(bar.get_x() + bar.get_width()/2, bar.get_height(), str(value), ha='center', va='bottom')
     
     plt.show()
 
