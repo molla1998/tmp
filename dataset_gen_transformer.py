@@ -1,4 +1,5 @@
 import random
+import csv
 
 def generate_combinations(n):
     PDT_GEN = ["phone", "galaxy phone", "laptop", "charger"]
@@ -27,8 +28,15 @@ def generate_combinations(n):
     
     return combinations
 
+def save_to_csv(data, filename="generated_combinations.csv"):
+    with open(filename, mode="w", newline="", encoding="utf-8") as file:
+        writer = csv.writer(file)
+        writer.writerow(["NLQ"])  # Adding the header
+        for row in data:
+            writer.writerow([row])
+
 if __name__ == "__main__":
     N = int(input("Enter the number of combinations: "))
     results = generate_combinations(N)
-    for result in results:
-        print(result)
+    save_to_csv(results)
+    print(f"Results saved to 'generated_combinations.csv' successfully!")
