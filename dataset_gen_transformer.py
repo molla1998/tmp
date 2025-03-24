@@ -28,15 +28,21 @@ def generate_combinations(n):
     
     return combinations
 
-def save_to_csv(data, filename="generated_combinations.csv"):
+def save_to_csv(data, filename="nlq_results.csv"):
     with open(filename, mode="w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
-        writer.writerow(["NLQ"])  # Adding the header
+        writer.writerow(["Query Text", "Label"])  # Add header
         for row in data:
-            writer.writerow([row])
+            writer.writerow([row, "NLQ"])  # Store generated query with label 'NLQ'
+    print(f"Results saved to {filename}")
 
 if __name__ == "__main__":
     N = int(input("Enter the number of combinations: "))
     results = generate_combinations(N)
+    
+    # Print results to console
+    for result in results:
+        print(result)
+    
+    # Save results to CSV
     save_to_csv(results)
-    print(f"Results saved to 'generated_combinations.csv' successfully!")
