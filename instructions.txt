@@ -1,0 +1,187 @@
+torch-model-archiver \
+  --model-name NLQ_KO_v1 \
+  --version 1.0 \
+  --serialized-file model/model.safetensors \
+  --handler custom_handler.py \
+  --extra-files "model/config.json,model/tokenizer_config.json,model/modules.json,model/README.md,model/sentence_bert_config.json,model/special_tokens_map.json,model/tokenizer.json,model/unigram.json,model/config_sentence_transformers.json,model/1_Pooling/config.json" \
+  --export-path model-store \
+  --force
+
+torch-model-archiver --model-name NLQ_KO_v1 --version 1.0 --serialized-file model/model.safetensors --handler custom_handler.py --extra-files "model/config.json,model/tokenizer_config.json,model/modules.json,model/README.md,model/sentence_bert_config.json,model/special_tokens_map.json,model/tokenizer.json,model/unigram.json,model/config_sentence_transformers.json,C:\Users\molla\Downloads\Samsung_task\NLQ_KO_v1\model\1_Pooling\config.json" --export-path model-store --force
+
+torchserve --start --ncs --model-store model-store --models NLQ_KO_v1=NLQ_KO_v1.mar
+curl -X POST http://127.0.0.1:8080/predictions/NLQ_KO_v1 -d "samsung s24"
+
+
+
+
+
+
+Great! If you're in a **Conda environment**, here's a full step-by-step guide tailored for your setup to **deploy your `model.safetensors` binary classifier using TorchServe**, including preprocessing to remove symbols.
+
+---
+
+## ✅ Step-by-Step Guide in Conda for TorchServe Deployment
+
+---
+
+### 🧱 Step 0: Ensure Conda Environment is Activated
+
+```bash
+conda activate your_env_name
+```
+
+Replace `your_env_name` with your actual environment.
+
+---
+
+### 📦 Step 1: Install Required Packages
+
+You need these packages inside your Conda environment:
+
+```bash
+pip install torch torchvision torchaudio \
+    torchserve torch-model-archiver \
+    transformers safetensors
+```
+
+---
+
+### 📁 Step 2: Prepare Folder Structure
+
+Let’s organize your files like this:
+
+```
+my_model/
+├── model/
+│   ├── model.safetensors
+│   ├── config.json
+│   ├── tokenizer_config.json
+│   └── vocab.txt (optional, depending on tokenizer)
+├── custom_handler.py
+├── model-store/
+└── requirements.txt
+```
+
+Copy your `model.safetensors`, `config.json`, and tokenizer files into `my_model/model/`.
+
+---
+
+### 🧹 Step 3: Custom Preprocessing Handler
+
+Create a file `custom_handler.py` in the `my_model/` folder:
+
+```python
+from ts.torch_handler.base_handler import BaseHandler
+import torch
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+import re
+
+class TextClassificationHandler(BaseHandler):
+    def __init__(self):
+        super().__init__()
+        self.initialized = False
+
+    def initialize(self, ctx):
+        model_dir = ctx.system_properties.get("model_dir")
+        self.tokenizer = AutoTokenizer.from_pretrained(model_dir)
+        self.model = AutoModelForSequenceClassification.from_pretrained(
+            model_dir,
+            trust_remote_code=True,
+            torch_dtype=torch.float
+        )
+        self.model.eval()
+        self.initialized = True
+
+    def preprocess(self, data):
+        text = data[0].get("data") or data[0].get("body")
+        text = text.decode("utf-8") if isinstance(text, bytes) else text
+        # Remove symbols
+        cleaned = re.sub(r"[^\w\s]", "", text)
+        return self.tokenizer(cleaned, return_tensors="pt", truncation=True, padding=True)
+
+    def inference(self, inputs):
+        with torch.no_grad():
+            output = self.model(**inputs)
+        return torch.softmax(output.logits, dim=1)
+
+    def postprocess(self, inference_output):
+        scores = inference_output[0].tolist()[0]
+        return {"NLQ": scores[0], "KH": scores[1]}
+```
+
+---
+
+### 📦 Step 4: Archive the Model using `torch-model-archiver`
+
+```bash
+cd my_model
+
+torch-model-archiver \
+  --model-name binary_classifier \
+  --version 1.0 \
+  --serialized-file model/model.safetensors \
+  --handler custom_handler.py \
+  --extra-files "model/config.json,model/tokenizer_config.json" \
+  --export-path model-store \
+  --force
+```
+
+> If the tokenizer needs `vocab.txt`, add it to `--extra-files`.
+
+---
+
+### 🚀 Step 5: Start TorchServe
+
+```bash
+torchserve --start --ncs --model-store model-store --models binary_classifier=binary_classifier.mar
+```
+
+* `--ncs`: No config snapshot
+* Ensure port 8080 is available
+
+---
+
+### 🧪 Step 6: Run Inference
+
+Create a file `input.txt`:
+
+```
+Is this a NLQ?
+```
+
+Then call:
+
+```bash
+curl -X POST http://127.0.0.1:8080/predictions/binary_classifier -T input.txt
+```
+
+Expected output:
+
+```json
+{"NLQ": 0.87, "KH": 0.13}
+```
+
+---
+
+### 🧰 Optional: `requirements.txt`
+
+```txt
+torch
+torchserve
+torch-model-archiver
+transformers
+safetensors
+```
+
+---
+
+## ✅ Bonus Tips
+
+* Want GPU inference? Add `--ts-config config.properties` and specify device.
+* Want Docker deployment? I can generate a full Dockerfile and inference setup.
+* Having trouble with `.safetensors` loading? Let me know — we can convert to `.bin`.
+
+---
+
+Would you like help verifying your model files are correctly set up (`config.json`, etc.)? Or should I generate a working template zip with all placeholders?
