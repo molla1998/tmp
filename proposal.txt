@@ -1,0 +1,33 @@
+Task 1: Trimming unnecessary lexical elements from text.
+Objective: Remove unnecessary parts-of-speech from query like (ADP,CCONJ,DET,PART,SCONJ)
+
+POS Tag	Meaning
+ADP	Adposition (prepositions like for, with, etc.)
+CCONJ	Coordinating conjunction (like and, but)
+DET	Determiner (like the, a, an)
+PART	Particle (like to in "to go")
+SCONJ	Subordinating conjunction
+
+Approach: A Python-based NLP pipeline that filters e-commerce queries by removing unnecessary words using Spacy POS tagging.
+
+
+
+
+Task2:  Extracting query based on user intent
+
+In e-commerce search queries, customers often mention a primary product along with accessories or secondary items, usually connected by prepositions like "with", "for", "including", etc. The goal is to automatically segment the query into:
+
+    The main product part (primary search intent)
+
+    The accessory or secondary part (additional but non-core items)
+
+Example:
+
+    Input: "show me samsung s24 with charger"
+
+    Output:
+
+        Primary product: "samsung s24"
+
+        Secondary item: "charger"
+		
