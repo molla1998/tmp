@@ -1,0 +1,2502 @@
+[
+  {
+    "input": "Find latest Samsung Monitor beside best Samsung TV",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "latest"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung TV",
+        "adj": [
+          "best"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find best Samsung Tablet for durable Samsung TV",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "best"
+        ],
+        "adp": [
+          "for"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung TV",
+        "adj": [
+          "durable"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find cheap Samsung Air Conditioner along with affordable Samsung Washing Machine",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "cheap"
+        ],
+        "adp": [
+          "along with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find compatible Samsung Monitor including fast Samsung Monitor",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [
+          "including"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "fast"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find compatible Samsung Air Conditioner beside energy efficient Samsung Galaxy Buds",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find energy efficient Samsung Soundbar including wireless Samsung Refrigerator",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Soundbar",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [
+          "including"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find affordable Samsung Refrigerator along with affordable Samsung Tablet",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [
+          "along with"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find high quality Samsung Washing Machine for fast Samsung Soundbar",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [
+          "for"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Soundbar",
+        "adj": [
+          "fast"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find cheap Samsung Refrigerator beside energy efficient Samsung Refrigerator",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "cheap"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find best Samsung TV including high quality Samsung Smartwatch",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung TV",
+        "adj": [
+          "best"
+        ],
+        "adp": [
+          "including"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find wireless Samsung TV under wireless Samsung Monitor",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung TV",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [
+          "under"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find durable Samsung Smartwatch beside wireless Samsung Smartwatch",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "durable"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find best Samsung S24 beside best Samsung Air Conditioner",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung S24",
+        "adj": [
+          "best"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "best"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find wireless Samsung S24 along with energy efficient Samsung Refrigerator",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung S24",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [
+          "along with"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find wireless Samsung S24 beside compatible Samsung Air Conditioner",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung S24",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find wireless Samsung Tablet including compatible Samsung Tablet",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [
+          "including"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find best Samsung TV for compatible Samsung Air Conditioner",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung TV",
+        "adj": [
+          "best"
+        ],
+        "adp": [
+          "for"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find high quality Samsung Smartwatch with high quality Samsung Monitor",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [
+          "with"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find latest Samsung Galaxy Buds with energy efficient Samsung Smartwatch",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "latest"
+        ],
+        "adp": [
+          "with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find high quality Samsung Washing Machine including fast Samsung TV",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [
+          "including"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung TV",
+        "adj": [
+          "fast"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find energy efficient Samsung Galaxy Buds including fast Samsung Washing Machine",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [
+          "including"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "fast"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find latest Samsung Washing Machine beside durable Samsung TV",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "latest"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung TV",
+        "adj": [
+          "durable"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find durable Samsung TV for durable Samsung S24",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung TV",
+        "adj": [
+          "durable"
+        ],
+        "adp": [
+          "for"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung S24",
+        "adj": [
+          "durable"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find cheap Samsung TV with wireless Samsung Galaxy Buds",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung TV",
+        "adj": [
+          "cheap"
+        ],
+        "adp": [
+          "with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find affordable Samsung Galaxy Buds under fast Samsung Tablet",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [
+          "under"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "fast"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find energy efficient Samsung Galaxy Buds under wireless Samsung Air Conditioner",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [
+          "under"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find wireless Samsung Air Conditioner beside high quality Samsung Washing Machine",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find compatible Samsung S24 beside affordable Samsung Tablet",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung S24",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find wireless Samsung Washing Machine with wireless Samsung Washing Machine",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [
+          "with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find compatible Samsung TV including latest Samsung Washing Machine",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung TV",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [
+          "including"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "latest"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find compatible Samsung Tablet under best Samsung Smartwatch",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [
+          "under"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "best"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find best Samsung Galaxy Buds beside fast Samsung Soundbar",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "best"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Soundbar",
+        "adj": [
+          "fast"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find energy efficient Samsung Smartwatch beside energy efficient Samsung TV",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung TV",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find cheap Samsung Galaxy Buds beside latest Samsung Washing Machine",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "cheap"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "latest"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find high quality Samsung Galaxy Buds under latest Samsung Soundbar",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [
+          "under"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Soundbar",
+        "adj": [
+          "latest"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find high quality Samsung Smartwatch under affordable Samsung Refrigerator",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [
+          "under"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find durable Samsung S24 including latest Samsung Galaxy Buds",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung S24",
+        "adj": [
+          "durable"
+        ],
+        "adp": [
+          "including"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "latest"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find energy efficient Samsung S24 beside wireless Samsung Smartwatch",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung S24",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find high quality Samsung Washing Machine along with affordable Samsung TV",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [
+          "along with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung TV",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find best Samsung Refrigerator along with affordable Samsung Smartwatch",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "best"
+        ],
+        "adp": [
+          "along with"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find durable Samsung Smartwatch along with fast Samsung Refrigerator",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "durable"
+        ],
+        "adp": [
+          "along with"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "fast"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find best Samsung Monitor under latest Samsung TV",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "best"
+        ],
+        "adp": [
+          "under"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung TV",
+        "adj": [
+          "latest"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find affordable Samsung Galaxy Buds including wireless Samsung Smartwatch",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [
+          "including"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find compatible Samsung Refrigerator including fast Samsung Washing Machine",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [
+          "including"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "fast"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find high quality Samsung Galaxy Buds along with high quality Samsung Refrigerator",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [
+          "along with"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find energy efficient Samsung Refrigerator beside cheap Samsung Soundbar",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Soundbar",
+        "adj": [
+          "cheap"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find latest Samsung Monitor for affordable Samsung Galaxy Buds",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "latest"
+        ],
+        "adp": [
+          "for"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find compatible Samsung Air Conditioner including wireless Samsung Monitor",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [
+          "including"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find affordable Samsung S24 along with compatible Samsung Tablet",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung S24",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [
+          "along with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find durable Samsung Refrigerator under high quality Samsung Monitor",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "durable"
+        ],
+        "adp": [
+          "under"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find affordable Samsung Monitor with fast Samsung Smartwatch",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [
+          "with"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "fast"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find cheap Samsung Smartwatch along with best Samsung Monitor",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "cheap"
+        ],
+        "adp": [
+          "along with"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "best"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find high quality Samsung Tablet for latest Samsung Air Conditioner",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [
+          "for"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "latest"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find affordable Samsung Air Conditioner beside high quality Samsung Smartwatch",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find high quality Samsung Tablet along with compatible Samsung Monitor",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [
+          "along with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find affordable Samsung Galaxy Buds along with best Samsung Refrigerator",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [
+          "along with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "best"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find high quality Samsung Smartwatch under affordable Samsung Refrigerator",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [
+          "under"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find high quality Samsung Smartwatch under energy efficient Samsung Tablet",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [
+          "under"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find wireless Samsung S24 beside energy efficient Samsung Tablet",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung S24",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find energy efficient Samsung S24 with cheap Samsung Air Conditioner",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung S24",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [
+          "with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "cheap"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find best Samsung Refrigerator under best Samsung TV",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "best"
+        ],
+        "adp": [
+          "under"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung TV",
+        "adj": [
+          "best"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find affordable Samsung Air Conditioner with wireless Samsung S24",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [
+          "with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung S24",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find fast Samsung Washing Machine for affordable Samsung TV",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "fast"
+        ],
+        "adp": [
+          "for"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung TV",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find cheap Samsung TV beside high quality Samsung Galaxy Buds",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung TV",
+        "adj": [
+          "cheap"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find energy efficient Samsung Tablet along with compatible Samsung Refrigerator",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [
+          "along with"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find high quality Samsung Air Conditioner along with latest Samsung TV",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [
+          "along with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung TV",
+        "adj": [
+          "latest"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find best Samsung TV with energy efficient Samsung Tablet",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung TV",
+        "adj": [
+          "best"
+        ],
+        "adp": [
+          "with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find energy efficient Samsung Washing Machine including wireless Samsung Monitor",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [
+          "including"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find compatible Samsung Refrigerator including affordable Samsung Air Conditioner",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [
+          "including"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find cheap Samsung S24 along with cheap Samsung Monitor",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung S24",
+        "adj": [
+          "cheap"
+        ],
+        "adp": [
+          "along with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "cheap"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find latest Samsung Smartwatch with compatible Samsung Galaxy Buds",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "latest"
+        ],
+        "adp": [
+          "with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find high quality Samsung Tablet including energy efficient Samsung Monitor",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [
+          "including"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find wireless Samsung Air Conditioner beside compatible Samsung Washing Machine",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find affordable Samsung Washing Machine for wireless Samsung Air Conditioner",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [
+          "for"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find energy efficient Samsung Galaxy Buds along with best Samsung Galaxy Buds",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [
+          "along with"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "best"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find best Samsung Smartwatch for durable Samsung Tablet",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "best"
+        ],
+        "adp": [
+          "for"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "durable"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find best Samsung Galaxy Buds along with fast Samsung Soundbar",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "best"
+        ],
+        "adp": [
+          "along with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Soundbar",
+        "adj": [
+          "fast"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find compatible Samsung Air Conditioner along with best Samsung TV",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [
+          "along with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung TV",
+        "adj": [
+          "best"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find durable Samsung Air Conditioner for best Samsung Galaxy Buds",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "durable"
+        ],
+        "adp": [
+          "for"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "best"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find latest Samsung Soundbar with fast Samsung Tablet",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Soundbar",
+        "adj": [
+          "latest"
+        ],
+        "adp": [
+          "with"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "fast"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find durable Samsung Air Conditioner under affordable Samsung Galaxy Buds",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "durable"
+        ],
+        "adp": [
+          "under"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find best Samsung TV beside wireless Samsung Refrigerator",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung TV",
+        "adj": [
+          "best"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find compatible Samsung Galaxy Buds with high quality Samsung Monitor",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [
+          "with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find cheap Samsung Tablet with durable Samsung Smartwatch",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "cheap"
+        ],
+        "adp": [
+          "with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "durable"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find fast Samsung TV with affordable Samsung Refrigerator",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung TV",
+        "adj": [
+          "fast"
+        ],
+        "adp": [
+          "with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find affordable Samsung S24 with affordable Samsung Smartwatch",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung S24",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [
+          "with"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find energy efficient Samsung Air Conditioner under high quality Samsung Smartwatch",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Air Conditioner",
+        "adj": [
+          "energy efficient"
+        ],
+        "adp": [
+          "under"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find affordable Samsung Tablet with fast Samsung Washing Machine",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [
+          "with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "fast"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find best Samsung Soundbar with high quality Samsung Monitor",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Soundbar",
+        "adj": [
+          "best"
+        ],
+        "adp": [
+          "with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find cheap Samsung TV beside durable Samsung TV",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung TV",
+        "adj": [
+          "cheap"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung TV",
+        "adj": [
+          "durable"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find affordable Samsung Monitor beside fast Samsung Washing Machine",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "fast"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find best Samsung Monitor beside wireless Samsung Galaxy Buds",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Monitor",
+        "adj": [
+          "best"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "wireless"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find cheap Samsung TV along with compatible Samsung Tablet",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung TV",
+        "adj": [
+          "cheap"
+        ],
+        "adp": [
+          "along with"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find durable Samsung Smartwatch for affordable Samsung Refrigerator",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "durable"
+        ],
+        "adp": [
+          "for"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Refrigerator",
+        "adj": [
+          "affordable"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find latest Samsung Tablet beside high quality Samsung S24",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "latest"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung S24",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find durable Samsung Tablet with durable Samsung Smartwatch",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "durable"
+        ],
+        "adp": [
+          "with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "durable"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find fast Samsung Washing Machine beside compatible Samsung Tablet",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "fast"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Tablet",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find best Samsung Smartwatch with fast Samsung Galaxy Buds",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Smartwatch",
+        "adj": [
+          "best"
+        ],
+        "adp": [
+          "with"
+        ],
+        "part_of_root": true
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Galaxy Buds",
+        "adj": [
+          "fast"
+        ],
+        "adp": [],
+        "part_of_root": false
+      }
+    ]
+  },
+  {
+    "input": "Find compatible Samsung Soundbar under fast Samsung Washing Machine",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Soundbar",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [
+          "under"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Washing Machine",
+        "adj": [
+          "fast"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  },
+  {
+    "input": "Find high quality Samsung Soundbar beside compatible Samsung Soundbar",
+    "nouns": [
+      {
+        "id": 1,
+        "noun": "Samsung Soundbar",
+        "adj": [
+          "high quality"
+        ],
+        "adp": [
+          "beside"
+        ],
+        "part_of_root": false
+      },
+      {
+        "id": 2,
+        "noun": "Samsung Soundbar",
+        "adj": [
+          "compatible"
+        ],
+        "adp": [],
+        "part_of_root": true
+      }
+    ]
+  }
+]
