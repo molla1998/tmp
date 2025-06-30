@@ -44,19 +44,26 @@ st.set_page_config(page_title="NLP Noun Analyzer", page_icon="🔍", layout="cen
 
 st.title("🔍 GET ENTITY DETAILS")
 
-st.write("Enter a query and target noun to analyze relationships using spaCy:")
+st.write("Enter a query and one or more target nouns (comma-separated) to analyze relationships using spaCy:")
 
 with st.form(key='infer_form'):
-    query = st.text_input("Enter your query", value="show me cheap samsung s24 with compatible charger")
-    target_noun = st.text_input("Enter the target noun", value="samsung s24")
+    query = st.text_input("Enter your query", value="show me cheap samsung s24 with compatible charger and iphone 15 case")
+    target_nouns_input = st.text_input("Enter target nouns (comma-separated)", value="samsung s24, iphone 15 case")
     submit_button = st.form_submit_button(label='Analyze')
 
 if submit_button:
-    with st.spinner("Analyzing..."):
-        result = infer(query, target_noun)
-    st.success("Analysis Complete ✅")
-    st.subheader("Results:")
-    st.json(result)
+    target_nouns = [noun.strip() for noun in target_nouns_input.split(",") if noun.strip()]
+    
+    if not target_nouns:
+        st.warning("Please enter at least one valid target noun.")
+    else:
+        with st.spinner("Analyzing..."):
+            for idx, noun in enumerate(target_nouns, 1):
+                result = infer(query, noun)
+                with st.expander(f"Result {idx}: '{noun}'"):
+                    st.json(result)
+                    
+        st.success("Analysis Complete ✅")
 
 st.markdown("---")
 st.caption("Powered by spaCy and Streamlit 🚀")
