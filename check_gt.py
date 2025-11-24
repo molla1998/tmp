@@ -1,24 +1,29 @@
 import csv
 import ast
 
-VALID_LABELS = {"product_name", "accessory"}
-
-def safe_eval(s, query):
-    """Safely parse list, and if failing, print the query causing error."""
+def safe_load_list(s, query):
+    """Safely load list using literal_eval; print query if parsing fails."""
     try:
-        return ast.literal_eval(s)
+        data = ast.literal_eval(s)
+        # Fix missing columns in GT or Pred rows
+        cleaned = []
+        for item in data:
+            # GT format: [text, start, end, adj, adp, is_main]
+            # PRED format: [text, start, end, adj, adp, is_main, label]
+            if len(item) < 6:  
+                item = item + [None] * (6 - len(item))
+            cleaned.append(item)
+        return cleaned
     except Exception:
-        print(f"[ERROR] Failed to parse GT/PRED for query:\n{query}\nValue: {s}")
+        print(f"❌ Parse error for query: {query}")
         return []
 
-
 def span_overlap(a_start, a_end, b_start, b_end):
-    """Returns True if two spans overlap."""
+    """Return True if spans overlap."""
     return not (a_end < b_start or b_end < a_start)
 
-
-def evaluate(input_csv, output_csv="eval_report.csv"):
-    rows_out = []
+def evaluate(input_csv, output_csv):
+    rows = []
     TP = 0
     FP = 0
 
@@ -27,75 +32,60 @@ def evaluate(input_csv, output_csv="eval_report.csv"):
 
         for row in reader:
             query = row["query"]
-            gt_list = safe_eval(row["gt"], query)
-            pred_list = safe_eval(row["preds"], query)
+            gt_list = safe_load_list(row["gt"], query)
+            pred_list = safe_load_list(row["preds"], query)
 
-            # Normalize GT entries (may be malformed)
-            cleaned_gt = []
-            for g in gt_list:
-                try:
-                    text = g[0]
-                    start = g[1]
-                    end = g[2]
-                    adj = g[3] if len(g) > 3 else ""
-                    adp = g[4] if len(g) > 4 else ""
-                    is_main = g[5] if len(g) > 5 else False
-                    cleaned_gt.append([text, start, end, adj, adp, is_main])
-                except Exception:
-                    print(f"[WARNING] Skipping malformed GT row in query: {query}")
+            # ---- Only consider preds with is_main_product == True ----
+            main_preds = [p for p in pred_list if len(p) >= 6 and p[5] == True]
 
-            # Evaluate only pred.is_main_product == TRUE
-            for p in pred_list:
-                try:
-                    pred_text = p[0]
-                    ps, pe = p[1], p[2]
-                    pred_is_main = p[5] if len(p) > 5 else False
-                    pred_label = p[6] if len(p) > 6 else None
-                except Exception:
-                    print(f"[WARNING] Skipping malformed PRED in query: {query}")
-                    continue
+            for pred in main_preds:
+                p_text, p_start, p_end = pred[0], pred[1], pred[2]
 
-                if pred_is_main is not True:
-                    continue  # ignore all preds not marked as main
-
-                if pred_label not in VALID_LABELS:
-                    continue  # ignore preds not having valid label
-
-                # Find GT match by overlap
                 matched_gt = None
-                for g in cleaned_gt:
-                    if span_overlap(ps, pe, g[1], g[2]):
-                        matched_gt = g
+
+                # Find ANY overlapping GT span
+                for gt in gt_list:
+                    if span_overlap(p_start, p_end, gt[1], gt[2]):
+                        matched_gt = gt
                         break
 
                 if matched_gt:
-                    gt_text = matched_gt[0]
-                    if matched_gt[5] is True:
+                    gt_is_main = matched_gt[5]  # True or False
+
+                    if gt_is_main:  # GT True → TP
                         status = "TP"
                         TP += 1
-                    else:
+                    else:  # GT False → FP
                         status = "FP"
                         FP += 1
                 else:
+                    # No GT span matched → FP
                     status = "FP"
-                    gt_text = ""
-
                     FP += 1
+                    matched_gt = ["<no match>", None, None, None, None, False]
 
-                rows_out.append([query, pred_text, gt_text, status])
+                rows.append({
+                    "query": query,
+                    "pred_text": p_text,
+                    "gt_text": matched_gt[0],
+                    "status": status
+                })
 
     precision = TP / (TP + FP) if (TP + FP) > 0 else 0.0
 
-    # Write report CSV
-    with open(output_csv, "w", encoding="utf-8", newline="") as f:
-        w = csv.writer(f)
-        w.writerow(["query", "pred_text", "gt_text", "status"])
-        w.writerows(rows_out)
+    # ---- Write Report CSV ----
+    with open(output_csv, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=["query", "pred_text", "gt_text", "status"])
+        writer.writeheader()
+        writer.writerows(rows)
 
-    print("==== FINAL PRECISION ====")
-    print("Precision:", precision)
-    print("TP:", TP)
-    print("FP:", FP)
-    print("=========================")
+    print("========== FINAL RESULTS ==========")
+    print(f"TP = {TP}")
+    print(f"FP = {FP}")
+    print(f"Precision = {precision:.4f}")
+    print("Report saved to:", output_csv)
 
-    return precision
+
+# Run
+if __name__ == "__main__":
+    evaluate("input.csv", "eval_report.csv")
