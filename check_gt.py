@@ -1,123 +1,163 @@
 import ast
 import csv
+import math
 
-# ==============================
-# Safe loader that handles errors
-# ==============================
+# --------------------------------------------------------
+# Safe loader (handles malformed GT or missing columns)
+# --------------------------------------------------------
 def safe_load_list(s, query=""):
     try:
-        return ast.literal_eval(s)
+        lst = ast.literal_eval(s)
+        if isinstance(lst, list):
+            return lst
+        print(f"[WARN] GT/PRED not list for query: {query}")
+        return []
     except Exception:
-        print(f"[ERROR] Could not parse GT/PRED list for query:\n{query}\nRaw: {s}\n")
+        print(f"[ERROR] Failed parsing GT/PRED for query: {query}")
         return []
 
-# ==============================
-# More flexible span overlap
-# Allows small drift (±2 chars default)
-# ==============================
-def span_overlap(a_start, a_end, b_start, b_end, tolerance=2):
+# --------------------------------------------------------
+# Flexible span overlap check
+# --------------------------------------------------------
+def flexible_span_overlap(gt, pred, tolerance=2, min_overlap_ratio=0.3):
     """
-    Returns True if spans approximately overlap with tolerance.
-    Good for Korean cases where token boundaries drift by 1–2 chars.
+    gt = [text, start, end, adj, adp, is_main]
+    pred = [text, start, end, adj, adp, is_main, label]
+    Returns True if spans match with tolerance.
     """
-    return not (a_end < b_start - tolerance or b_end < a_start - tolerance)
 
-# ==============================
-# Normalize GT/PRED element
-# ==============================
-def normalize_item(item):
-    """
-    Expected format for GT:
-        [text, start, end, adj, adp, is_main_product]
+    try:
+        gs, ge = int(gt[1]), int(gt[2])
+        ps, pe = int(pred[1]), int(pred[2])
+    except:
+        return False
 
-    Expected format for PRED:
-        [text, start, end, adj, adp, is_main_product, label]
+    # soft boundary tolerance
+    if abs(gs - ps) <= tolerance and abs(ge - pe) <= tolerance:
+        return True
 
-    Some GT/PRED entries may be missing a field — handle safely.
-    """
-    text = item[0] if len(item) > 0 else ""
-    start = item[1] if len(item) > 1 else -1
-    end = item[2] if len(item) > 2 else -1
-    adj = item[3] if len(item) > 3 else ""
-    adp = item[4] if len(item) > 4 else ""
-    is_main = item[5] if len(item) > 5 else False
-    label = item[6] if len(item) > 6 else None  # Only for preds
-    return text, start, end, adj, adp, is_main, label
+    # compute overlap
+    overlap = max(0, min(ge, pe) - max(gs, ps))
+    gt_len = max(1, ge - gs)
+    pred_len = max(1, pe - ps)
 
-# ==============================
-# Evaluation logic
-# ==============================
-def evaluate_csv(input_path, output_path="report.csv"):
-    rows_out = []
+    ratio = overlap / min(gt_len, pred_len)
+
+    return ratio >= min_overlap_ratio
+
+# --------------------------------------------------------
+# Evaluation logic:
+# Only consider PRED where pred.is_main_product == True.
+# Then:
+#    If span matches a GT that has is_main_product == True → TP
+#    Else → FP
+#
+# No FN counted (as requested).
+# --------------------------------------------------------
+def evaluate_row(query, gt_list, pred_list):
+    results = []
+
+    # clean malformed GT elements
+    cleaned_gt = []
+    for g in gt_list:
+        if len(g) < 6:
+            print(f"[WARN] GT element missing fields for query: {query}")
+            continue
+        cleaned_gt.append(g)
+
+    # Filter preds: ONLY those with pred.is_main_product == True
+    pred_main = []
+    for p in pred_list:
+        if len(p) < 6:
+            continue
+        try:
+            if bool(p[5]) is True:
+                pred_main.append(p)
+        except:
+            continue
+
+    # For each pred_main evaluate TP / FP
+    for p in pred_main:
+        label = None
+        if len(p) >= 7:
+            label = p[6]
+
+        # check correct label
+        label_valid = label in {"product_name", "accessory"}
+
+        # find matching GT by flexible span
+        match_gt = None
+        for g in cleaned_gt:
+            if flexible_span_overlap(g, p):
+                match_gt = g
+                break
+
+        if match_gt:
+            if match_gt[5] is True and label_valid:
+                status = "TP"
+            else:
+                status = "FP"
+        else:
+            # no GT span matches → FP
+            status = "FP"
+
+        results.append({
+            "query": query,
+            "gt_text": match_gt[0] if match_gt else "",
+            "pred_text": p[0],
+            "pred_label": label,
+            "status": status
+        })
+
+    return results
+
+# --------------------------------------------------------
+# CSV Evaluation wrapper
+# --------------------------------------------------------
+def evaluate_csv(path, out_csv="eval_report.csv"):
+    final_rows = []
     tp = 0
     fp = 0
 
-    with open(input_path, encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         reader = csv.DictReader(f)
-
         for row in reader:
-            query = row["query"]
-            gt_list = safe_load_list(row["gt"], query)
-            pred_list = safe_load_list(row["preds"], query)
+            query = row.get("query", "")
+            gt_list = safe_load_list(row.get("gt", "[]"), query)
+            pred_list = safe_load_list(row.get("preds", "[]"), query)
 
-            # Normalize all GT
-            gt_norm = [normalize_item(g) for g in gt_list]
+            row_results = evaluate_row(query, gt_list, pred_list)
+            final_rows.extend(row_results)
 
-            # Only consider pred.is_main_product == True
-            for p in pred_list:
-                p_text, p_start, p_end, _, _, p_is_main, p_label = normalize_item(p)
+    # compute precision only
+    for r in final_rows:
+        if r["status"] == "TP":
+            tp += 1
+        elif r["status"] == "FP":
+            fp += 1
 
-                if not p_is_main:
-                    continue  # Ignore completely
-
-                # Check for matching GT span
-                matched_gt = None
-                for g in gt_norm:
-                    g_text, g_start, g_end, _, _, g_is_main, _ = g
-
-                    if span_overlap(p_start, p_end, g_start, g_end):
-                        matched_gt = g
-                        break
-
-                # Evaluate TP/FP
-                if matched_gt:
-                    g_text, g_start, g_end, _, _, g_is_main, _ = matched_gt
-                    if g_is_main:
-                        status = "TP"
-                        tp += 1
-                    else:
-                        status = "FP"
-                        fp += 1
-                else:
-                    status = "FP"
-                    g_text = ""   # no GT match
-                    fp += 1
-
-                rows_out.append({
-                    "query": query,
-                    "pred_text": p_text,
-                    "gt_text": g_text,
-                    "status": status
-                })
-
-    # Precision calculation
     precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
 
-    # Write report CSV
-    with open(output_path, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=["query", "pred_text", "gt_text", "status"])
+    # write report
+    with open(out_csv, "w", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=[
+            "query", "gt_text", "pred_text", "pred_label", "status"
+        ])
         writer.writeheader()
-        writer.writerows(rows_out)
+        writer.writerows(final_rows)
 
-    print("==== FINAL PRECISION ====")
-    print(f"Precision: {precision:.4f}")
-    print("=========================")
+    return {
+        "precision": precision,
+        "tp": tp,
+        "fp": fp,
+        "total_pred_positive": tp + fp,
+        "output_csv": out_csv
+    }
 
-    print(f"Report saved to: {output_path}")
-
-    return precision
-            
-
-# Run script
+# --------------------------------------------------------
+# Main entry
+# --------------------------------------------------------
 if __name__ == "__main__":
-    evaluate_csv("input.csv", "report.csv")
+    res = evaluate_csv("input.csv")
+    print("\nFinal Evaluation:")
+    print(res)
