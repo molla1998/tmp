@@ -1,92 +1,89 @@
-import ast
 import csv
+import ast
+import pandas as pd
 
-def load_list_safe(s, query):
+def load_list_safe(s, query=""):
     try:
         return ast.literal_eval(s)
     except Exception:
-        print("❌ Error parsing row for query:", query)
+        print("AST parse error for query:", query)
         return []
 
 def span_overlap(a_start, a_end, b_start, b_end):
-    """Check if two spans overlap."""
-    return not (a_end < b_start or b_end < a_start)
+    return max(0, min(a_end, b_end) - max(a_start, b_start)) > 0
 
-def evaluate_main_product(gt_list, pred_list):
-    """Evaluate TP/FP/FN exactly as per your final rule."""
+def evaluate_main_product(input_csv):
+    tp = fp = fn = 0
+    rows_report = []
 
-    # 1. Filter preds: only those where pred.is_main_product == True
-    pred_true = [p for p in pred_list if p[5] is True]
-
-    # Track results
-    results = []  # each row: dict(text_gt, text_pred, status)
-    used_gt = set()
-
-    # --- Evaluate TP / FP ---
-    for p in pred_true:
-        p_text, p_s, p_e = p[0], p[1], p[2]
-
-        matched_gt = None
-        for i, g in enumerate(gt_list):
-            g_text, g_s, g_e, _, _, g_main = g
-            if span_overlap(p_s, p_e, g_s, g_e):
-                matched_gt = (i, g)
-                break
-
-        if matched_gt:
-            idx, g = matched_gt
-            used_gt.add(idx)
-
-            if g[5] is True:
-                status = "TP"
-            else:
-                status = "FP"
-
-        else:
-            status = "FP"  # predicted main product that does not exist in GT
-
-        results.append({
-            "gt_text": g[0] if matched_gt else "",
-            "pred_text": p_text,
-            "status": status
-        })
-
-    # --- Evaluate FN (GT main items not predicted) ---
-    for i, g in enumerate(gt_list):
-        if g[5] is True and i not in used_gt:
-            results.append({
-                "gt_text": g[0],
-                "pred_text": "",
-                "status": "FN"
-            })
-
-    return results
-
-
-def evaluate_csv(path):
-    all_rows = []
-
-    with open(path, encoding="utf-8") as f:
+    with open(input_csv, encoding="utf-8") as f:
         reader = csv.DictReader(f)
 
         for row in reader:
-            gt_list = load_list_safe(row["gt"], row["query"])
-            pred_list = load_list_safe(row["preds"], row["query"])
+            gt = load_list_safe(row["gt"], row.get("query", ""))
+            pred = load_list_safe(row["preds"], row.get("query", ""))
 
-            eval_rows = evaluate_main_product(gt_list, pred_list)
-            for r in eval_rows:
-                r["query"] = row["query"]
-                all_rows.append(r)
+            # Keep only preds where is_main_product == True
+            pred_main = [p for p in pred if p[5] is True]
 
-    # write output
-    out = "eval_report.csv"
-    with open(out, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=["query", "gt_text", "pred_text", "status"])
-        writer.writeheader()
-        writer.writerows(all_rows)
+            # Track GT true items
+            gt_main = [g for g in gt if g[5] is True]
 
-    print("✔ Evaluation saved to", out)
+            matched_gt_ids = set()
+
+            # Process each main prediction
+            for p in pred_main:
+                p_start, p_end = p[1], p[2]
+                matched_gt = None
+
+                # Find overlapping GT
+                for idx, g in enumerate(gt):
+                    if span_overlap(p_start, p_end, g[1], g[2]):
+                        matched_gt = (idx, g)
+                        break
+
+                if matched_gt:
+                    idx, g = matched_gt
+                    matched_gt_ids.add(idx)
+
+                    if g[5] is True:
+                        tp += 1
+                        rows_report.append([g[0], p[0], "TP"])
+                    else:
+                        fp += 1
+                        rows_report.append([g[0], p[0], "FP"])
+                else:
+                    # pred main product but no GT overlap
+                    fp += 1
+                    rows_report.append(["", p[0], "FP"])
+
+            # FN = GT true but no predicted main product overlapped
+            for idx, g in enumerate(gt_main):
+                # If this GT index was never matched → FN
+                if idx not in matched_gt_ids:
+                    fn += 1
+                    rows_report.append([g[0], "", "FN"])
+
+    # compute metrics
+    precision = tp / (tp + fp) if (tp + fp) else 0
+    recall = tp / (tp + fn) if (tp + fn) else 0
+    f1 = (2 * precision * recall) / (precision + recall) if (precision + recall) else 0
+
+    # save report
+    df = pd.DataFrame(rows_report, columns=["gt_text", "pred_text", "status"])
+    df.to_csv("eval_report.csv", index=False)
+
+    return {
+        "TP": tp,
+        "FP": fp,
+        "FN": fn,
+        "precision": precision,
+        "recall": recall,
+        "f1": f1
+    }
 
 
 if __name__ == "__main__":
-    evaluate_csv("input.csv")
+    result = evaluate_main_product("input.csv")
+    print(result)
+    print("Report saved to eval_report.csv")
