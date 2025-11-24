@@ -1,131 +1,91 @@
-import csv
 import ast
+import csv
 
-VALID_LABELS = {"product_name", "accessory"}
-
-
-def safe_load(s, query=""):
-    """Load list from CSV safely, print query if broken."""
+def load_list_safe(s, query):
     try:
         return ast.literal_eval(s)
     except Exception:
-        print(f"[ERROR] Could not parse GT/PRED for query: {query}")
+        print("❌ Error parsing row for query:", query)
         return []
 
-
 def span_overlap(a_start, a_end, b_start, b_end):
-    """Return True if spans overlap."""
+    """Check if two spans overlap."""
     return not (a_end < b_start or b_end < a_start)
 
+def evaluate_main_product(gt_list, pred_list):
+    """Evaluate TP/FP/FN exactly as per your final rule."""
 
-def match_pred(gt_item, pred_list):
-    """Return best pred that overlaps with GT span."""
-    g_start, g_end = gt_item[1], gt_item[2]
+    # 1. Filter preds: only those where pred.is_main_product == True
+    pred_true = [p for p in pred_list if p[5] is True]
 
-    for p in pred_list:
-        if span_overlap(g_start, g_end, p[1], p[2]):
-            return p
+    # Track results
+    results = []  # each row: dict(text_gt, text_pred, status)
+    used_gt = set()
 
-    return None
+    # --- Evaluate TP / FP ---
+    for p in pred_true:
+        p_text, p_s, p_e = p[0], p[1], p[2]
 
+        matched_gt = None
+        for i, g in enumerate(gt_list):
+            g_text, g_s, g_e, _, _, g_main = g
+            if span_overlap(p_s, p_e, g_s, g_e):
+                matched_gt = (i, g)
+                break
 
-def evaluate_row(gt_list, pred_list):
-    """
-    Evaluate only GT entries where is_main_product == True.
-    Return list of records used for final CSV reporting.
-    """
-    records = []
+        if matched_gt:
+            idx, g = matched_gt
+            used_gt.add(idx)
 
-    # Filter only main-product GTs
-    gt_main = [g for g in gt_list if g[5] == True]
-
-    # Collect preds that are main-product to detect FP later
-    pred_main = [p for p in pred_list if p[5] == True]
-
-    matched_pred_ids = set()
-
-    for gt in gt_main:
-        gt_text = gt[0]
-        matched = match_pred(gt, pred_list)
-
-        if matched:
-            matched_pred_ids.add(id(matched))
-            pred_text = matched[0]
-            pred_label = matched[-1] if len(matched) >= 7 else None
-
-            if matched[5] == True and pred_label in VALID_LABELS:
+            if g[5] is True:
                 status = "TP"
             else:
-                status = "FN"
-        else:
-            pred_text = ""
-            pred_label = None
-            status = "FN"
+                status = "FP"
 
-        records.append({
-            "gt_text": gt_text,
-            "pred_text": pred_text,
-            "pred_label": pred_label,
+        else:
+            status = "FP"  # predicted main product that does not exist in GT
+
+        results.append({
+            "gt_text": g[0] if matched_gt else "",
+            "pred_text": p_text,
             "status": status
         })
 
-    # Detect FP: any pred-main-product not matched to any GT-main-product
-    for p in pred_main:
-        if id(p) not in matched_pred_ids:
-            pred_text = p[0]
-            pred_label = p[-1] if len(p) >= 7 else None
-
-            records.append({
-                "gt_text": "",
-                "pred_text": pred_text,
-                "pred_label": pred_label,
-                "status": "FP"
+    # --- Evaluate FN (GT main items not predicted) ---
+    for i, g in enumerate(gt_list):
+        if g[5] is True and i not in used_gt:
+            results.append({
+                "gt_text": g[0],
+                "pred_text": "",
+                "status": "FN"
             })
 
-    return records
+    return results
 
 
-def evaluate_csv(input_path, output_path="eval_report.csv"):
-    all_records = []
+def evaluate_csv(path):
+    all_rows = []
 
-    with open(input_path, encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         reader = csv.DictReader(f)
 
         for row in reader:
-            gt_list = safe_load(row["gt"], row.get("query", ""))
-            pred_list = safe_load(row["preds"], row.get("query", ""))
+            gt_list = load_list_safe(row["gt"], row["query"])
+            pred_list = load_list_safe(row["preds"], row["query"])
 
-            recs = evaluate_row(gt_list, pred_list)
-            for r in recs:
+            eval_rows = evaluate_main_product(gt_list, pred_list)
+            for r in eval_rows:
                 r["query"] = row["query"]
-            all_records.extend(recs)
+                all_rows.append(r)
 
-    # Write report
-    with open(output_path, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(
-            f,
-            fieldnames=["query", "gt_text", "pred_text", "pred_label", "status"]
-        )
+    # write output
+    out = "eval_report.csv"
+    with open(out, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=["query", "gt_text", "pred_text", "status"])
         writer.writeheader()
-        writer.writerows(all_records)
+        writer.writerows(all_rows)
 
-    # Compute global TP/FP/FN
-    TP = sum(1 for r in all_records if r["status"] == "TP")
-    FP = sum(1 for r in all_records if r["status"] == "FP")
-    FN = sum(1 for r in all_records if r["status"] == "FN")
-
-    precision = TP / (TP + FP) if TP + FP else 0
-    recall = TP / (TP + FN) if TP + FN else 0
-    f1 = (2 * precision * recall / (precision + recall)) if precision + recall else 0
-
-    print("\n=== FINAL METRICS ===")
-    print(f"TP = {TP}")
-    print(f"FP = {FP}")
-    print(f"FN = {FN}")
-    print(f"Precision = {precision:.4f}")
-    print(f"Recall    = {recall:.4f}")
-    print(f"F1        = {f1:.4f}")
-    print("\nCSV report generated:", output_path)
+    print("✔ Evaluation saved to", out)
 
 
 if __name__ == "__main__":
