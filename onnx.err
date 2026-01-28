@@ -1,0 +1,72 @@
+(base) C:\Users\molla\Downloads\Samsung_task>python dep_failure.py
+C:\Users\molla\anaconda3\Lib\site-packages\torch\cuda\__init__.py:61: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+C:\Users\molla\anaconda3\Lib\site-packages\hanlp\layers\transformers\utils.py:42: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if max_sequence_length and input_ids.size(-1) > max_sequence_length:
+C:\Users\molla\anaconda3\Lib\site-packages\opt_einsum\contract.py:317: TracerWarning: Converting a tensor to a Python integer might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  dim = int(sh[cnum])
+C:\Users\molla\anaconda3\Lib\site-packages\opt_einsum\blas.py:78: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if shapes[0][input_left.find(c)] != shapes[1][input_right.find(c)]:
+C:\Users\molla\anaconda3\Lib\site-packages\opt_einsum\parser.py:169: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  return tuple(max(shape[loc] for shape, loc in zip(shapes, [x.find(c) for x in inputs]) if loc >= 0) for c in output)
+Traceback (most recent call last):
+  File "C:\Users\molla\Downloads\Samsung_task\dep_failure.py", line 53, in <module>
+    torch.onnx.export(
+  File "C:\Users\molla\anaconda3\Lib\site-packages\torch\onnx\__init__.py", line 375, in export
+    export(
+  File "C:\Users\molla\anaconda3\Lib\site-packages\torch\onnx\utils.py", line 502, in export
+    _export(
+  File "C:\Users\molla\anaconda3\Lib\site-packages\torch\onnx\utils.py", line 1564, in _export
+    graph, params_dict, torch_out = _model_to_graph(
+                                    ^^^^^^^^^^^^^^^^
+  File "C:\Users\molla\anaconda3\Lib\site-packages\torch\onnx\utils.py", line 1113, in _model_to_graph
+    graph, params, torch_out, module = _create_jit_graph(model, args)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\molla\anaconda3\Lib\site-packages\torch\onnx\utils.py", line 997, in _create_jit_graph
+    graph, torch_out = _trace_and_get_graph_from_model(model, args)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\molla\anaconda3\Lib\site-packages\torch\onnx\utils.py", line 904, in _trace_and_get_graph_from_model
+    trace_graph, torch_out, inputs_states = torch.jit._get_trace_graph(
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\molla\anaconda3\Lib\site-packages\torch\jit\_trace.py", line 1500, in _get_trace_graph
+    outs = ONNXTracedModule(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\molla\anaconda3\Lib\site-packages\torch\nn\modules\module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\molla\anaconda3\Lib\site-packages\torch\nn\modules\module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\molla\anaconda3\Lib\site-packages\torch\jit\_trace.py", line 139, in forward
+    graph, out = torch._C._create_graph_by_tracing(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\molla\anaconda3\Lib\site-packages\torch\jit\_trace.py", line 130, in wrapper
+    outs.append(self.inner(*trace_inputs))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\molla\anaconda3\Lib\site-packages\torch\nn\modules\module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\molla\anaconda3\Lib\site-packages\torch\nn\modules\module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\molla\anaconda3\Lib\site-packages\torch\nn\modules\module.py", line 1726, in _slow_forward
+    result = self.forward(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\molla\Downloads\Samsung_task\dep_failure.py", line 41, in forward
+    dep_arc, dep_rel = self.dep_decoder(hidden_states, mask=attention_mask)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\molla\anaconda3\Lib\site-packages\torch\nn\modules\module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\molla\anaconda3\Lib\site-packages\torch\nn\modules\module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\molla\anaconda3\Lib\site-packages\torch\nn\modules\module.py", line 1726, in _slow_forward
+    result = self.forward(*input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\molla\anaconda3\Lib\site-packages\hanlp\components\parsers\biaffine\biaffine_model.py", line 184, in forward
+    s_arc, s_rel = self.decode(arc_d, arc_h, rel_d, rel_h, mask, self.arc_attn, self.rel_attn)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\molla\anaconda3\Lib\site-packages\hanlp\components\parsers\biaffine\biaffine_model.py", line 197, in decode
+    s_arc.masked_fill_(~mask.unsqueeze(1), float('-inf'))
+RuntimeError: masked_fill_ only supports boolean masks, but got mask with dtype __int64
