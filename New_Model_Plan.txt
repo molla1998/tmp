@@ -1,0 +1,215 @@
+Spacy Vs. New Approach:
+
+Topic 				Spacy 				New_Approach
+Inference Time		Maybe Still Same	Maybe Still Same, transformaer based onnx optimized model to detect main-pdt
+
+Flexibility 
+in Error Handling	Non Trainable		As Main_Pdt detedctor & Adjective
+										Detector will be trainable
+Accuracy As we've flexibility of training, possibility of high accuracy 										
+
+
+
+Proposal: Hybrid Entity Understanding for Samsung.com Search Queries
+
+Approach: MiniLM NER + Heuristic Proximity Labeling + Transformer-based Main Product Identifier
+
+🎯 Objective
+
+Improve understanding of natural language product search queries (e.g.,
+“show me high-end phone with 8GB RAM”) by accurately extracting:
+
+Product entities (phone, tablet, TV, etc.)
+
+Attribute constraints (RAM, storage, camera, etc.)
+
+Qualitative modifiers (high-end, budget, premium)
+
+The primary product of interest (main_pdt)
+
+This enables better query-to-search-filter mapping, improving relevance and conversion.
+
+🧠 High-Level Architecture
+User Query
+   ↓
+MiniLM-based NER
+   ↓
+Heuristic Entity Linking (proximity-based)
+   ↓
+Transformer-based Main Product Identifier
+   ↓
+Structured Query for Search / Recommendation
+
+🧩 Components
+1️⃣ MiniLM-Based Named Entity Recognition (NER)
+
+Purpose:
+Detect core entities from user queries.
+
+Entities Extracted:
+
+Product types (phone, tablet, tv, laptop)
+
+Attributes (ram, storage, battery, camera)
+
+Attribute values (8GB, 128GB, 5000mAh)
+
+Qualitative tiers (high-end, budget, flagship)
+
+Why MiniLM:
+
+Lightweight, low-latency
+
+Good accuracy for short search queries
+
+Cost-efficient to deploy and fine-tune
+
+Outcome:
+Raw entities with spans and confidence scores.
+
+2️⃣ Heuristic Proximity-Based Adjective & Attribute Linking
+
+Purpose:
+Attach extracted modifiers and attributes to the correct product entity.
+
+Problem Solved:
+Search queries are short and often ungrammatical, making dependency parsing brittle.
+
+Approach:
+
+Attach adjectives (e.g., “high-end”) to nearest product entity within a token window
+
+Attach attribute values (e.g., “8GB”) to nearest compatible attribute (e.g., RAM)
+
+Optionally use lightweight linguistic signals (noun chunks, token distance)
+
+Why Heuristics:
+
+Low computational cost
+
+Highly interpretable
+
+Robust to messy user input
+
+Faster iteration compared to retraining models
+
+Outcome:
+Structured product-attribute-modifier groupings.
+
+3️⃣ Transformer-Based Main Product Identifier
+
+Purpose:
+Identify the primary product of interest when multiple product entities are present.
+
+Example Queries:
+
+“compare phone and tablet with 8GB RAM”
+
+“best samsung phone and tv deals”
+
+Approach:
+
+Train a small classifier (MiniLM/DistilBERT) to score each detected product entity
+
+Input: full query + candidate product
+
+Output: probability of being the main product
+
+Why This Is Needed:
+
+Dependency tree root is unreliable for short queries
+
+Heuristics alone don’t generalize well to comparison or multi-product queries
+
+Benefits:
+
+More robust than syntactic root heuristics
+
+Low inference cost
+
+Easy to improve with additional labeled data
+
+Outcome:
+Single main_pdt decision used to drive search ranking and filtering logic.
+
+⚖️ Why This Hybrid Approach
+Aspect	Benefit
+Accuracy	ML handles entity detection, heuristics handle noisy structure
+Cost	MiniLM + rules + small classifier (no heavy LLM dependency)
+Latency	Suitable for real-time search
+Maintainability	Heuristics and schema can evolve independently
+Scalability	New attributes/products can be added without retraining full system
+🧪 Evaluation Strategy
+
+Component-Level Metrics:
+
+NER: Precision / Recall / F1 on entity extraction
+
+Linking: % of correct attribute → product attachment
+
+Main Product: Accuracy in multi-product queries
+
+End-to-End Metrics:
+
+Query → correct filter mapping rate
+
+Impact on search relevance (CTR, conversion uplift – later phase)
+
+🗺️ Phased Delivery Plan
+Phase 1 – Foundation
+
+Deploy MiniLM NER
+
+Define entity schema
+
+Baseline extraction accuracy
+
+Phase 2 – Heuristic Linking
+
+Implement proximity-based attachment logic
+
+Add normalization for attribute values
+
+Offline evaluation on real query logs
+
+Phase 3 – Main Product Classifier
+
+Build weakly-labeled dataset
+
+Train MiniLM classifier for main product detection
+
+Integrate into pipeline
+
+Phase 4 – Integration & Optimization
+
+End-to-end pipeline
+
+Confidence thresholds + fallbacks
+
+Monitoring & error analysis
+
+🚀 Expected Impact
+
+Better understanding of natural language queries
+
+More accurate search filtering (RAM, segment, price tier)
+
+Improved relevance for premium/budget intent
+
+Foundation for future personalization and recommendations
+
+🔮 Future Extensions (Optional Roadmap)
+
+Support for comparison intent (“phone vs tablet”)
+
+Price range understanding (“under 50k”)
+
+Personalized ranking using user preferences
+
+Gradual transition to joint slot-filling models if needed
+
+If you want, I can also help you turn this into:
+
+A one-page architecture slide, or
+
+A talk track you can use to explain this to your manager in 2–3 minutes.
