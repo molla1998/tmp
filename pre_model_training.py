@@ -106,9 +106,80 @@ scheduler = get_linear_schedule_with_warmup(
     num_training_steps=total_steps
 )
 
+# # ==============================
+# # TRAINING LOOP
+# # ==============================
+# for epoch in range(EPOCHS):
+#     model.train()
+#     total_loss = 0
+
+#     for batch in tqdm(train_loader, desc=f"Training Epoch {epoch+1}"):
+#         optimizer.zero_grad()
+
+#         input_ids = batch["input_ids"].to(DEVICE)
+#         attention_mask = batch["attention_mask"].to(DEVICE)
+#         labels = batch["labels"].to(DEVICE)
+
+#         outputs = model(
+#             input_ids=input_ids,
+#             attention_mask=attention_mask,
+#             labels=labels
+#         )
+
+#         loss = outputs.loss
+#         loss.backward()
+
+#         optimizer.step()
+#         scheduler.step()
+
+#         total_loss += loss.item()
+
+#     avg_train_loss = total_loss / len(train_loader)
+
+#     # ==============================
+#     # VALIDATION
+#     # ==============================
+#     model.eval()
+#     preds = []
+#     true_labels = []
+
+#     with torch.no_grad():
+#         for batch in val_loader:
+#             input_ids = batch["input_ids"].to(DEVICE)
+#             attention_mask = batch["attention_mask"].to(DEVICE)
+#             labels = batch["labels"].to(DEVICE)
+
+#             outputs = model(
+#                 input_ids=input_ids,
+#                 attention_mask=attention_mask
+#             )
+
+#             logits = outputs.logits
+#             predictions = torch.argmax(logits, dim=1)
+
+#             preds.extend(predictions.cpu().numpy())
+#             true_labels.extend(labels.cpu().numpy())
+
+#     acc = accuracy_score(true_labels, preds)
+#     f1 = f1_score(true_labels, preds, average="macro")
+
+#     print(f"\nEpoch {epoch+1}")
+#     print(f"Train Loss: {avg_train_loss:.4f}")
+#     print(f"Val Accuracy: {acc:.4f}")
+#     print(f"Val F1: {f1:.4f}")
+
+# # ==============================
+# # SAVE MODEL
+# # ==============================
+# model.save_pretrained("relation_model")
+# tokenizer.save_pretrained("relation_model")
+
+# print("Training complete. Model saved.")
+
 # ==============================
 # TRAINING LOOP
 # ==============================
+best_f1 = 0.0
 for epoch in range(EPOCHS):
     model.train()
     total_loss = 0
@@ -136,9 +207,9 @@ for epoch in range(EPOCHS):
 
     avg_train_loss = total_loss / len(train_loader)
 
-    # ==============================
+    # ======================
     # VALIDATION
-    # ==============================
+    # ======================
     model.eval()
     preds = []
     true_labels = []
@@ -166,12 +237,14 @@ for epoch in range(EPOCHS):
     print(f"\nEpoch {epoch+1}")
     print(f"Train Loss: {avg_train_loss:.4f}")
     print(f"Val Accuracy: {acc:.4f}")
-    print(f"Val F1: {f1:.4f}")
+    print(f"Val Macro F1: {f1:.4f}")
 
-# ==============================
-# SAVE MODEL
-# ==============================
-model.save_pretrained("relation_model")
-tokenizer.save_pretrained("relation_model")
+    # ======================
+    # SAVE BEST MODEL
+    # ======================
+    if f1 > best_f1:
+        best_f1 = f1
+        print(f"New Best Model Found! Saving with F1: {best_f1:.4f}")
 
-print("Training complete. Model saved.")
+        model.save_pretrained("best_relation_model")
+        tokenizer.save_pretrained("best_relation_model")
