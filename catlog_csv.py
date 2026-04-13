@@ -88,7 +88,7 @@ def search(query, top_n=5):
     scores = bm25.get_scores(tokens)
 
     ranked = sorted(
-        zip(df_products["id"], scores),
+        zip(df_products["product_name"], scores),
         key=lambda x: x[1],
         reverse=True
     )
@@ -112,11 +112,11 @@ def run_pipeline(input_csv, output_csv):
         top_results = search(final_query, top_n=5)
 
         results.append({
-            "query": raw_query,
-            "final_query": final_query,
-            "top5_ids": ", ".join([str(pid) for pid, _ in top_results]),
-            "top5_scores": ", ".join([f"{score:.4f}" for _, score in top_results])
-        })
+    "query": raw_query,
+    "final_query": final_query,
+    "top5_products": ", ".join([name for name, _ in top_results]),
+    "top5_scores": ", ".join([f"{score:.4f}" for _, score in top_results])
+})
 
     df_out = pd.DataFrame(results)
     df_out.to_csv(output_csv, index=False)
