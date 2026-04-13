@@ -99,30 +99,40 @@ def search(query, top_n=5):
 # RUN PIPELINE
 # =========================
 def run_pipeline(input_csv, output_csv):
-    df_queries = pd.read_csv(input_csv)  # column: query
+    df_queries = pd.read_csv(input_csv)
 
     results = []
 
     for _, row in df_queries.iterrows():
         raw_query = row["query"]
 
+        # -------- RAW --------
+        raw_results = search(raw_query)
+
+        # -------- NER + HYBRID --------
         ner_output = ner_model(raw_query)
         final_query = build_hybrid_query(raw_query, ner_output)
-
-        top_results = search(final_query, top_n=5)
+        ner_results = search(final_query)
 
         results.append({
-    "query": raw_query,
-    "final_query": final_query,
-    "top5_products": ", ".join([name for name, _ in top_results]),
-    "top5_scores": ", ".join([f"{score:.4f}" for _, score in top_results])
-})
+            "query": raw_query,
 
-    df_out = pd.DataFrame(results)
-    df_out.to_csv(output_csv, index=False)
+            # RAW OUTPUT
+            "raw_top5": ", ".join([name for name, _ in raw_results]),
+            "raw_scores": ", ".join([f"{score:.4f}" for _, score in raw_results]),
 
-    print(f"✅ Results saved to {output_csv}")
+            # NER OUTPUT
+            "ner_top5": ", ".join([name for name, _ in ner_results]),
+            "ner_scores": ", ".join([f"{score:.4f}" for _, score in ner_results]),
 
+            # Optional debug
+            "final_query": final_query
+        })
+
+    pd.DataFrame(results).to_csv(output_csv, index=False)
+
+    print(f"✅ Saved to {output_csv}")
+    
 # =========================
 # RUN
 # =========================
