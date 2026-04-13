@@ -109,23 +109,31 @@ def run_pipeline(input_csv, output_csv):
         # -------- RAW --------
         raw_results = search(raw_query)
 
-        # -------- NER + HYBRID --------
-        ner_output = ner_model(raw_query)
-        final_query = build_hybrid_query(raw_query, ner_output)
-        ner_results = search(final_query)
+        # -------- NER + HYBRID (SAFE) --------
+        try:
+            ner_output = ner_model(raw_query)
+            final_query = build_hybrid_query(raw_query, ner_output)
 
+            # fallback if empty
+            if not final_query.strip():
+                final_query = raw_query
+
+            ner_results = search(final_query)
+
+        except Exception as e:
+            # 🔥 fallback
+            final_query = raw_query
+            ner_results = raw_results
+
+            print(f"⚠️ NER failed for query: {raw_query} | Error: {e}")
+
+        # -------- STORE --------
         results.append({
             "query": raw_query,
 
-            # RAW OUTPUT
             "raw_top5": ", ".join([name for name, _ in raw_results]),
-            "raw_scores": ", ".join([f"{score:.4f}" for _, score in raw_results]),
-
-            # NER OUTPUT
             "ner_top5": ", ".join([name for name, _ in ner_results]),
-            "ner_scores": ", ".join([f"{score:.4f}" for _, score in ner_results]),
 
-            # Optional debug
             "final_query": final_query
         })
 
