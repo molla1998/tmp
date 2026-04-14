@@ -1,0 +1,82 @@
+Here’s a **concise 1-page IEEE-style methodology section** (formal, compact, and paper-ready):
+
+---
+
+## **III. METHODOLOGY**
+
+### **A. Dataset Construction**
+
+A domain-specific Named Entity Recognition (NER) dataset was generated using a **template-based synthetic data generation approach**. Predefined query templates were combined with entity dictionaries to produce diverse Korean-language queries. The entity schema included **PRODUCT_NAME**, **ACCESSORY**, **COLOR**, and **BRAND**.
+
+Templates were designed to reflect realistic user queries, incorporating both single-entity and multi-entity structures (e.g., “ner_product_name 용 ner_accessory 있어?”, “ner_color ner_accessory 찾아줘”). Entities were randomly sampled and inserted into templates to ensure variability in lexical and contextual patterns.
+
+Each generated query was annotated using a **span-based format**, where entities are represented as character offsets and labels:
+[
+{ \text{text}, ; [(start, end, label), \dots] }
+]
+
+To improve generalization, the dataset included diverse sentence structures and balanced representation across entity types.
+
+---
+
+### **B. Preprocessing and Tokenization**
+
+Tokenization was performed using the pretrained tokenizer associated with the **multilingual MiniLM model** to ensure consistency with the embedding layer.
+
+Given the morphological complexity of Korean, particular attention was paid to:
+
+* Maintaining accurate character-level entity offsets
+* Aligning annotations with subword tokenization
+
+External tokenizers were not used to avoid vocabulary and embedding mismatches.
+
+---
+
+### **C. Model Architecture**
+
+We fine-tuned the pretrained transformer model **`microsoft/multilingual-MiniLM-L12-H384`**, which provides efficient multilingual contextual representations.
+
+The model consists of:
+
+* A MiniLM encoder for contextual feature extraction
+* A token-level classification head for NER
+
+A standard sequence labeling framework was adopted, where each token is assigned an entity label.
+
+---
+
+### **D. Training Procedure**
+
+The model was trained using supervised learning with a **cross-entropy loss function** for token classification. Optimization was performed using the **AdamW optimizer** with a learning rate in the range of (2 \times 10^{-5}) to (5 \times 10^{-5}).
+
+Training was conducted over multiple epochs, with performance monitored on a validation set. To mitigate class imbalance, the dataset was constructed to ensure sufficient representation of all entity types.
+
+---
+
+### **E. Evaluation**
+
+The model was evaluated on a held-out test set using standard NER metrics:
+
+* **Precision**
+* **Recall**
+* **F1-score**
+
+Evaluation was performed at the **entity level**, requiring exact matches for both entity boundaries and labels. The test set included simple and multi-entity queries to assess generalization across different query patterns.
+
+---
+
+### **F. Error Analysis**
+
+Error analysis revealed common challenges, including:
+
+* Confusion between **COLOR** and **PRODUCT_NAME** in co-occurring contexts
+* Boundary detection errors in multi-token entities
+
+These findings guided iterative improvements in dataset design and annotation consistency.
+
+---
+
+If you want, I can next:
+
+* convert this into **LaTeX (IEEE template format)**, or
+* add **citations placeholders ([1], [2])** to make it publication-ready.

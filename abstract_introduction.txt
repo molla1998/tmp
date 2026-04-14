@@ -1,0 +1,124 @@
+📄 Abstract
+
+This research explores the integration of structured query understanding techniques to improve search relevance for an electronics e-commerce platform. Traditional keyword-based retrieval systems often struggle with complex and attribute-rich user queries, leading to suboptimal search results. To address this, the proposed approach focuses on extracting and leveraging key product-related entities such as product types, model names, and attributes (e.g., memory, connectivity, screen size) from user queries.
+
+These extracted elements are used to reformulate the original query into a more structured and informative representation. A hybrid query is constructed by combining the original user input with the enriched representation, ensuring both recall and precision. The final query is processed using a BM25-based retrieval system operating over product titles and descriptions, where product names are given higher importance to improve exact matching.
+
+The system is designed to be lightweight and robust, incorporating fallback mechanisms to handle cases where structured extraction is incomplete or unavailable. Experimental evaluation compares the baseline keyword-based approach with the proposed method using ranking metrics such as Precision@K and Mean Reciprocal Rank (MRR). Results demonstrate that structured query understanding significantly improves retrieval accuracy, particularly for complex queries, without introducing significant computational overhead.
+
+📄 1. Introduction
+
+E-commerce search systems play a critical role in connecting users with relevant products. Most production systems rely heavily on keyword-based retrieval techniques, such as BM25, due to their efficiency and scalability. However, these approaches often struggle to accurately interpret user intent, especially when queries are long, ambiguous, or contain multiple product attributes. For example, a query such as “5G Samsung phone with 8GB RAM” contains multiple structured signals that are not fully utilized by traditional keyword matching methods.
+
+A key limitation of such systems is their inability to explicitly understand and leverage the underlying structure of user queries. Important elements such as product type, brand, and attributes are treated as independent tokens rather than semantically meaningful components. This often leads to irrelevant or suboptimal results, particularly in domains like electronics e-commerce where product specifications play a crucial role in user decision-making.
+
+To address this challenge, this work proposes a structured query understanding approach that extracts key entities and attributes from user queries and uses them to reformulate the query into a more informative representation. Instead of relying solely on raw keyword matching, the system enhances the query with structured signals that better reflect user intent. The reformulated query is then combined with the original query to maintain robustness and recall.
+
+The effectiveness of the proposed approach is evaluated using a standard BM25 retrieval framework over product titles and descriptions. By comparing retrieval performance with and without structured query enhancement, this study demonstrates that incorporating query structure can significantly improve search relevance. The approach remains lightweight and practical, making it suitable for real-world deployment without requiring complex or computationally expensive models.
+
+
+
+
+
+
+
+
+
+
+
+Great—you should definitely explain this clearly in your paper 👍
+Here’s a **clean, ready-to-use Evaluation Metrics section** tailored to your setup.
+
+---
+
+# 📄 **Evaluation Metrics**
+
+To evaluate the effectiveness of the proposed query understanding approach, ranking-based metrics are used to measure how well the system retrieves the correct product within the top-K results. In this work, we use **Mean Average Precision (mAP)** and **Mean Reciprocal Rank (MRR)**.
+
+---
+
+## **Mean Average Precision (mAP)**
+
+Mean Average Precision (mAP) measures the quality of the ranked retrieval results by considering the position of relevant items in the result list.
+
+For a single query, **Average Precision (AP)** is defined as:
+
+* The average of precision values computed at the ranks where the relevant product appears
+* Higher scores are assigned when the correct product appears earlier in the ranking
+
+Since each query in our setup has a single ground truth product, the AP simplifies to:
+
+* **AP = 1 / rank**, if the correct product is found in the result list
+* **AP = 0**, if the correct product is not retrieved within top-K
+
+The final mAP score is computed by averaging AP across all queries:
+
+```text
+mAP = (1 / N) * Σ AP(q)
+```
+
+where *N* is the total number of queries.
+
+---
+
+## **Mean Reciprocal Rank (MRR)**
+
+Mean Reciprocal Rank (MRR) evaluates how early the first relevant result appears in the ranked list.
+
+For each query, the **Reciprocal Rank (RR)** is defined as:
+
+```text
+RR = 1 / rank
+```
+
+where *rank* is the position of the first correct product in the retrieved list.
+
+* If the correct product is ranked first → RR = 1
+* If ranked second → RR = 0.5
+* If not found → RR = 0
+
+The final MRR is computed as:
+
+```text
+MRR = (1 / N) * Σ RR(q)
+```
+
+---
+
+## **Discussion**
+
+In this study, both mAP and MRR effectively capture the quality of the ranking produced by the system. Since each query is associated with a single relevant product, both metrics emphasize the importance of placing the correct product as early as possible in the ranked results.
+
+Higher values of mAP and MRR indicate better performance, with improvements reflecting the effectiveness of the proposed structured query understanding approach over the baseline keyword-based retrieval.
+
+---
+
+# ⚠️ Small but IMPORTANT note (for you)
+
+👉 In your setup (single ground truth):
+
+```text
+mAP ≈ MRR
+```
+
+So if someone asks:
+
+* You can say both are used for **robust reporting**, but they behave similarly.
+
+---
+
+# ✅ Why this is good
+
+✔ Matches your evaluation exactly
+✔ No unnecessary math complexity
+✔ Reviewer-friendly explanation
+✔ Honest about single-GT setup
+
+---
+
+# 🚀 If you want next
+
+I can:
+
+* Add **Precision@K explanation section**
+* Or help you write **Results + interpretation (very important)** 🔥

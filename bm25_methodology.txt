@@ -1,0 +1,111 @@
+Perfect 👍 — here’s a **clean, concise Methodology section** tailored to your exact implementation.
+It’s written in a **semi-academic but simple internal style** (no unnecessary theory).
+
+---
+
+# 📄 **3. Methodology**
+
+## **3.1 Overview**
+
+This work compares a baseline keyword-based retrieval system with an enhanced query understanding approach for e-commerce product search. The baseline system uses standard BM25 retrieval over product text, while the proposed system augments the query using structured information extracted through Named Entity Recognition (NER) and entity linking.
+
+The overall goal is to evaluate whether incorporating structured query understanding improves retrieval quality over raw keyword matching.
+
+---
+
+## **3.2 Data Representation**
+
+The product catalog is represented as a collection of items, each containing:
+
+* **product_name**: Title of the product
+* **product_description**: Textual description of the product
+
+For retrieval, both fields are combined into a single textual representation. To improve the importance of product titles, tokens from the product name are repeated, effectively increasing their weight during BM25 scoring.
+
+---
+
+## **3.3 Baseline System: BM25 Retrieval**
+
+The baseline system performs retrieval using the raw user query without any modification.
+
+### Steps:
+
+1. The input query is tokenized and normalized
+2. BM25 is applied over the indexed product corpus
+3. Top-K products are retrieved based on relevance scores
+
+This approach relies purely on lexical matching between query terms and product text.
+
+---
+
+## **3.4 Proposed System: NER + Entity Linking + BM25**
+
+The proposed system enhances retrieval by transforming the input query into a structured and enriched representation before applying BM25.
+
+---
+
+### **3.4.1 Query Understanding**
+
+A Named Entity Recognition (NER) model is used to extract key entities from the query, including:
+
+* Product types (e.g., phone, laptop)
+* Product names (e.g., Galaxy S23)
+* Attributes (e.g., 8GB, 5G)
+
+Entity linking is then applied to normalize extracted entities to canonical forms aligned with the product catalog (e.g., "s23" → "Samsung Galaxy S23").
+
+---
+
+### **3.4.2 Query Reformulation**
+
+The extracted entities are used to construct an enriched query. The reformulation process includes:
+
+* Repeating the main product entity to increase its importance
+* Appending attribute values such as memory or connectivity
+* Removing irrelevant or noisy terms
+
+In addition, a hybrid strategy is used where the original query is combined with the reformulated query to preserve recall while improving precision.
+
+---
+
+### **3.4.3 Retrieval and Ranking**
+
+The final query (raw + reformulated) is passed to the BM25 retrieval system. Products are ranked based on their relevance scores computed using token overlap with the indexed product text.
+
+To ensure diversity, duplicate product names are removed from the final ranked list, retaining only the highest-ranked instance.
+
+---
+
+## **3.5 Evaluation Setup**
+
+For each query, two sets of results are generated:
+
+* **Baseline**: Top-K results from raw BM25
+* **Proposed**: Top-K results from NER-enhanced query
+
+Each query is associated with a ground truth product. Retrieval quality is evaluated based on whether the correct product appears within the top-K results.
+
+Standard ranking metrics such as Precision@K and Mean Reciprocal Rank (MRR) are computed to compare both systems.
+
+---
+
+# ✅ Why this works for you
+
+✔ Matches your pipeline exactly
+✔ Covers:
+
+* BM25
+* NER + Linking
+* Hybrid query
+* Deduplication
+  ✔ Clean and readable (no fluff)
+
+---
+
+# 🚀 If you want next
+
+I can:
+
+* Write **Results section using your metrics**
+* Or create a **diagram for this methodology (very useful)**
+* Or tighten this for **external publication** 🔥

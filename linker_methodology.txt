@@ -1,0 +1,187 @@
+Here’s a **paper-ready Methodology section** for your approach. It is structured, formal, and aligned with what reviewers expect.
+
+---
+
+# 📄 Methodology
+
+## 3. Methodology
+
+This section describes the proposed framework for linking attributes to the correct products in short e-commerce queries. The method assumes that named entities are already extracted and focuses on modeling relationships between entities using span-level representations and pairwise scoring.
+
+---
+
+## 3.1 Problem Formulation
+
+Given a query ( Q ), we assume a set of extracted entities:
+
+[
+E = {e_1, e_2, ..., e_n}
+]
+
+where each entity ( e_i ) is defined as:
+
+[
+e_i = (t_i, l_i, s_i, e_i)
+]
+
+Here, ( t_i ) is the entity text, ( l_i ) is the entity label (e.g., product_name, memory, color), and ( s_i, e_i ) denote the start and end character positions in the query.
+
+We divide entities into:
+
+* Product entities: ( P \subset E )
+* Attribute entities: ( A \subset E )
+
+The objective is to learn a mapping:
+
+[
+f: A \rightarrow P
+]
+
+that associates each attribute with the most relevant product.
+
+---
+
+## 3.2 Span Representation
+
+To capture contextual meaning, each entity is represented using a span embedding derived from a transformer-based encoder.
+
+The query ( Q ) is tokenized into subword tokens, and contextual token embeddings are obtained from the final hidden layer of the encoder. Using offset mappings, tokens corresponding to each entity span are identified.
+
+The span embedding for an entity ( e ) is computed as the mean of its token embeddings:
+
+[
+\mathbf{h}*e = \frac{1}{|T_e|} \sum*{j \in T_e} \mathbf{h}_j
+]
+
+where ( T_e ) is the set of token indices corresponding to entity ( e ), and ( \mathbf{h}_j ) is the embedding of token ( j ).
+
+This representation captures both the semantic meaning of the entity and its surrounding context.
+
+---
+
+## 3.3 Pairwise Scoring Mechanism
+
+To determine the relationship between an attribute and a product, a pairwise scoring function is defined.
+
+### Semantic Similarity
+
+The semantic similarity between an attribute ( a \in A ) and a product ( p \in P ) is computed using cosine similarity:
+
+[
+S_{sim}(a, p) = \cos(\mathbf{h}_a, \mathbf{h}_p)
+]
+
+---
+
+### Positional Proximity
+
+To incorporate structural information, we define a distance-based score using the character-level span positions:
+
+[
+d(a, p) = \max(0, \max(s_a - e_p, s_p - e_a))
+]
+
+The corresponding distance score is:
+
+[
+S_{dist}(a, p) = \frac{1}{d(a, p) + 1}
+]
+
+This formulation ensures that closer entities receive higher scores.
+
+---
+
+### Final Score
+
+The final association score is computed as a weighted combination:
+
+[
+S(a, p) = \alpha \cdot S_{sim}(a, p) + \beta \cdot S_{dist}(a, p)
+]
+
+where ( \alpha ) and ( \beta ) control the contribution of semantic and positional signals.
+
+---
+
+## 3.4 Linking Strategy
+
+For each attribute ( a \in A ), scores are computed with all candidate products ( p \in P ). The attribute is assigned to the product with the highest score:
+
+[
+p^* = \arg\max_{p \in P} S(a, p)
+]
+
+A threshold ( \tau_l ) is applied to filter low-confidence associations:
+
+[
+\text{Link}(a) =
+\begin{cases}
+p^*, & \text{if } S(a, p^*) \geq \tau_l \
+\text{null}, & \text{otherwise}
+\end{cases}
+]
+
+To improve robustness, threshold values can be tuned per attribute type using validation data.
+
+---
+
+## 3.5 Product–Product Relationship Modeling
+
+In addition to attribute–product linking, relationships between products are also considered. For each pair of products ( (p_i, p_j) ), a similarity score is computed:
+
+[
+S_{pp}(p_i, p_j) = \cos(\mathbf{h}*{p_i}, \mathbf{h}*{p_j})
+]
+
+If the similarity exceeds a predefined threshold ( \tau_p ), a relationship is established:
+
+[
+\text{Rel}(p_i, p_j) =
+\begin{cases}
+\text{related}, & \text{if } S_{pp}(p_i, p_j) \geq \tau_p \
+\text{null}, & \text{otherwise}
+\end{cases}
+]
+
+This enables handling of scenarios such as product comparisons or compatibility queries.
+
+---
+
+## 3.6 Structured Output Generation
+
+The final output is constructed as a structured representation where each product is associated with its linked attributes:
+
+[
+O = {(p, {a_1, a_2, ...})}
+]
+
+Additionally, inter-product relationships are included where applicable. This structured format can be directly used for downstream tasks such as search ranking and recommendation.
+
+---
+
+## 3.7 Complexity and Efficiency
+
+The proposed method operates with a complexity of:
+
+[
+O(|A| \times |P|)
+]
+
+for pairwise scoring, which is efficient given the small number of entities in short queries. Since the framework uses lightweight transformer embeddings and avoids full sequence generation, it supports low-latency inference suitable for real-time applications.
+
+---
+
+# ✅ Why This Works for Your Paper
+
+* Clearly separates **representation, scoring, linking**
+* Includes **math (reviewers love this)**
+* Shows **novelty = relationship modeling**
+* Mentions **efficiency (important for industry papers)**
+
+---
+
+If you want next, I can help you:
+
+✅ Write **Experiments section (MAP, NDCG, F1)**
+✅ Create **diagram (pipeline figure)**
+✅ Add **pseudo-code (for stronger paper acceptance)**
