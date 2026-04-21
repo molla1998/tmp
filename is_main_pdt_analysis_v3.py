@@ -8,6 +8,9 @@ import ast
 # ================================
 API_URL = "YOUR_API_ENDPOINT"
 
+def to_bool(x):
+    return str(x).strip().lower() == "true"
+
 
 # ---------- Normalize ----------
 def normalize(text):
@@ -86,7 +89,7 @@ def evaluate(input_csv, output_csv):
         # ---- Match GT → PRED ----
         for gt in gt_products:
             gt_name = gt["product_name"]
-            gt_flag = gt["is_main_product"]
+            gt_flag = to_bool(row["is_main_pdt_gt"])
 
             found_match = False
 
@@ -98,22 +101,27 @@ def evaluate(input_csv, output_csv):
                     found_match = True
                     matched_pred_idx.add(i)
 
-                    pred_flag = pred["is_main_product"]
-
+                    pred_flag = to_bool(row["is_main_pdt_pred"])
+                    
                     # ---- Classification ----
                     if gt_flag and pred_flag:
-                        status = "TP"
-                        TP += 1
+                        if match:
+                            status = "TP"
+                            TP += 1
+                        else:
+                            status = "FN_PDT"
+                    
                     elif not gt_flag and pred_flag:
                         status = "FP"
                         FP += 1
+                    
                     elif gt_flag and not pred_flag:
                         status = "FN"
                         FN += 1
+                    
                     else:
                         status = "TN"
                         TN += 1
-
                     rows.append({
                         "query": query,
                         "product_name_gt": gt_name,
