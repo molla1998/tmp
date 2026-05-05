@@ -3,9 +3,14 @@ pip install vllm langchain langchain-openai
 
 python -m vllm.entrypoints.openai.api_server \
   --model google/gemma-2b \
-  --port 8000python -m vllm.entrypoints.openai.api_server \
-  --model google/gemma-2b \
   --port 8000
+
+from huggingface_hub import snapshot_download
+
+snapshot_download(
+    repo_id="google/gemma-2b",
+    token="your_token"
+)
 
 from langchain_openai import ChatOpenAI
 
