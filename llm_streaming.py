@@ -30,3 +30,5 @@ llm = ChatOpenAI(
 
 response = llm.invoke("Explain what LangChain is in 2 lines")
 print(response.content)
+
+python -m vllm.entrypoints.openai.api_server --model google/gemma-2b --port 8000
