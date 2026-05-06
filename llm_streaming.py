@@ -11,7 +11,14 @@ snapshot_download(
     repo_id="google/gemma-2b",
     token="your_token"
 )
+from huggingface_hub import snapshot_download
 
+snapshot_download(
+    repo_id="google/gemma-2b",
+    local_dir="/home/yourname/models/gemma-2b",
+    local_dir_use_symlinks=False,
+    token="hf_xxxxx"   # optional if already logged in
+)
 from langchain_openai import ChatOpenAI
 
 llm = ChatOpenAI(
