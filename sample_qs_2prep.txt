@@ -1,0 +1,661 @@
+Based on your CV, you're targeting **AI/ML Engineer / Senior AI/ML Engineer / Applied AI / NLP / LLM Engineer** roles. Your experience is heavily centered on:
+
+* NLP & Transformers
+* NER (Named Entity Recognition)
+* Query Understanding Systems
+* LLM Fine-tuning
+* LoRA
+* RAG
+* Synthetic Data Generation
+* Search & Recommendation Systems
+* Production ML Deployment
+* Quantization & Optimization
+* Multi-task Learning
+
+I'll organize questions from **basic → intermediate → advanced → system design → leadership rounds**.
+
+---
+
+# 1. Resume Deep-Dive Questions (Must Prepare)
+
+Interviewers often start here.
+
+### Query Understanding Agent
+
+**Q1:** Explain your LLM-powered Query Understanding Agent end-to-end.
+
+Expected answer:
+
+* Input query
+* Guardrails
+* Query preprocessing
+* NER
+* Intent Classification
+* Tab Prediction
+* Structured Output
+* Search API orchestration
+
+---
+
+**Q2:** Why did you choose Gemma-3?
+
+Follow-up:
+
+* Why not Llama?
+* Why not Mistral?
+* Why not DistilBERT?
+
+---
+
+**Q3:** Explain how LoRA works.
+
+Follow-ups:
+
+* Why LoRA instead of full fine-tuning?
+* What are rank (r) and alpha?
+* What layers did you adapt?
+
+---
+
+**Q4:** How did you achieve 93%+ NER F1?
+
+Follow-ups:
+
+* Dataset size
+* Labeling process
+* Evaluation setup
+* Error analysis
+
+---
+
+**Q5:** Explain the CTR increase claim.
+
+Interviewers will ask:
+
+> How did you prove your model contributed to 31% CTR improvement?
+
+Need:
+
+* A/B testing
+* Offline metrics
+* Online metrics
+* Attribution
+
+---
+
+# 2. NLP Fundamentals
+
+### NER
+
+**Q6:** What is Named Entity Recognition?
+
+**Q7:** Difference between:
+
+* NER
+* POS Tagging
+* Entity Linking
+
+---
+
+**Q8:** How is NER evaluated?
+
+Answer:
+
+* Precision
+* Recall
+* F1 Score
+
+---
+
+**Q9:** What is BIO tagging?
+
+Example:
+
+```
+Samsung Galaxy S24
+
+Samsung -> B-BRAND
+Galaxy -> I-BRAND
+S24 -> I-BRAND
+```
+
+---
+
+**Q10:** Why can token classification fail on noisy search queries?
+
+Example:
+
+```
+s24 ultra black 256gb under 70k
+```
+
+---
+
+# 3. Transformer Questions
+
+### Must Know
+
+**Q11:** Why are Transformers better than RNNs?
+
+---
+
+**Q12:** Explain Self-Attention.
+
+Very common.
+
+Need formula:
+
+```
+Attention(Q,K,V)
+=
+softmax(QKᵀ/√d)V
+```
+
+---
+
+**Q13:** Why divide by √d?
+
+---
+
+**Q14:** Multi-head attention vs single-head attention.
+
+---
+
+**Q15:** Explain positional encoding.
+
+---
+
+**Q16:** Encoder vs Decoder architecture.
+
+---
+
+**Q17:** BERT vs GPT.
+
+Expected:
+
+| BERT          | GPT        |
+| ------------- | ---------- |
+| Bidirectional | Causal     |
+| Encoder       | Decoder    |
+| Understanding | Generation |
+
+---
+
+# 4. DistilBERT Questions
+
+Since your resume mentions DistilBERT.
+
+**Q18:** What is DistilBERT?
+
+---
+
+**Q19:** How was DistilBERT trained?
+
+Answer:
+Knowledge Distillation.
+
+---
+
+**Q20:** Advantages over BERT?
+
+Need:
+
+* 40% smaller
+* Faster inference
+* Similar accuracy
+
+---
+
+**Q21:** Why choose DistilBERT for production?
+
+---
+
+# 5. LLM Questions
+
+### Frequently Asked
+
+**Q22:** Explain next-token prediction.
+
+---
+
+**Q23:** What is temperature?
+
+---
+
+**Q24:** Top-k vs Top-p sampling.
+
+---
+
+**Q25:** Hallucination in LLMs.
+
+---
+
+**Q26:** Why do LLMs hallucinate?
+
+---
+
+**Q27:** How would you reduce hallucinations?
+
+Expected:
+
+* RAG
+* Fine-tuning
+* Better prompting
+* Tool calling
+
+---
+
+# 6. LoRA / PEFT
+
+### Very Important
+
+**Q28:** Explain LoRA mathematically.
+
+Need:
+
+```
+W = W₀ + BA
+```
+
+---
+
+**Q29:** Why does LoRA save memory?
+
+---
+
+**Q30:** What is QLoRA?
+
+---
+
+**Q31:** LoRA vs Full Fine-tuning.
+
+---
+
+**Q32:** When would LoRA fail?
+
+---
+
+# 7. RAG Questions
+
+Your resume strongly highlights RAG.
+
+### Core Questions
+
+**Q33:** Explain RAG architecture.
+
+Flow:
+
+```
+User Query
+→ Embedding
+→ Vector Search
+→ Retrieved Docs
+→ LLM
+→ Response
+```
+
+---
+
+**Q34:** Why RAG instead of Fine-tuning?
+
+---
+
+**Q35:** What is chunking?
+
+---
+
+**Q36:** Best chunk size?
+
+Interviewers love this.
+
+Answer:
+Depends on:
+
+* Document structure
+* Context window
+* Retrieval task
+
+Typically:
+
+* 256–1024 tokens
+
+---
+
+**Q37:** What embedding models have you used?
+
+---
+
+**Q38:** FAISS vs ChromaDB.
+
+---
+
+**Q39:** What retrieval metrics do you use?
+
+* Recall@K
+* MRR
+* NDCG
+
+---
+
+**Q40:** What causes retrieval failures?
+
+---
+
+# 8. Synthetic Data Generation
+
+This is a standout part of your resume.
+
+### Prepare deeply
+
+**Q41:** Why synthetic data?
+
+---
+
+**Q42:** Risks of synthetic data?
+
+Expected:
+
+* Distribution shift
+* Bias amplification
+* Overfitting
+
+---
+
+**Q43:** How did you generate 500K queries?
+
+Need clear pipeline:
+
+```
+Catalog
+→ RAG
+→ Prompt Template
+→ LLM
+→ Validation
+→ Dataset
+```
+
+---
+
+**Q44:** How did you validate generated data quality?
+
+---
+
+**Q45:** How do you prevent synthetic data contamination?
+
+---
+
+# 9. Multi-task Learning
+
+Since your query classifier uses it.
+
+**Q46:** What is Multi-task Learning?
+
+---
+
+**Q47:** Benefits?
+
+---
+
+**Q48:** Hard sharing vs Soft sharing.
+
+---
+
+**Q49:** Why use one model instead of multiple models?
+
+---
+
+# 10. Production ML Questions
+
+Very important for Samsung experience.
+
+### Q50
+
+How do you deploy an ML model?
+
+Need:
+
+```
+Training
+→ Validation
+→ Model Registry
+→ Docker
+→ API
+→ Monitoring
+```
+
+---
+
+### Q51
+
+What metrics do you monitor?
+
+* Latency
+* Throughput
+* CTR
+* Accuracy
+* Drift
+
+---
+
+### Q52
+
+What is model drift?
+
+---
+
+### Q53
+
+Data drift vs Concept drift.
+
+---
+
+### Q54
+
+How would you detect model degradation?
+
+---
+
+# 11. Quantization Questions
+
+Your resume explicitly mentions INT8.
+
+### Q55
+
+What is quantization?
+
+---
+
+### Q56
+
+Why INT8?
+
+---
+
+### Q57
+
+INT8 vs FP16.
+
+---
+
+### Q58
+
+Post-training Quantization vs QAT.
+
+---
+
+### Q59
+
+How did you achieve 3x latency improvement?
+
+Be ready with real numbers.
+
+---
+
+# 12. ML Fundamentals
+
+### Interviewers still ask
+
+**Q60:** Bias-Variance Tradeoff
+
+**Q61:** Overfitting vs Underfitting
+
+**Q62:** Precision vs Recall
+
+**Q63:** ROC-AUC
+
+**Q64:** Cross Validation
+
+**Q65:** Regularization
+
+**Q66:** L1 vs L2
+
+---
+
+# 13. Coding Questions
+
+You should expect Python coding.
+
+### Easy
+
+Reverse string
+
+Two Sum
+
+Valid Parentheses
+
+---
+
+### Medium
+
+LRU Cache
+
+Top K Frequent Elements
+
+Merge Intervals
+
+Word Search
+
+---
+
+### NLP Coding
+
+Implement:
+
+* TF-IDF
+* Cosine Similarity
+* Beam Search
+* Greedy Decoding
+
+---
+
+# 14. System Design Round
+
+Senior AI Engineer level.
+
+### Q67
+
+Design an E-commerce Query Understanding System.
+
+Expected architecture:
+
+```
+User Query
+→ Query Cleaner
+→ NER
+→ Intent Classifier
+→ Tab Prediction
+→ Query Rewriter
+→ Search Engine
+→ Ranking
+```
+
+---
+
+### Q68
+
+Design a RAG System for Samsung Product Search.
+
+---
+
+### Q69
+
+Design multilingual search understanding.
+
+Need:
+
+* Language Detection
+* Translation or Multilingual Model
+* Retrieval
+* Ranking
+
+---
+
+### Q70
+
+Design a production LLM service for 10M users.
+
+Need:
+
+* Load balancing
+* Caching
+* Quantization
+* Autoscaling
+* Monitoring
+
+---
+
+# 15. Leadership Questions (Lead AI/ML Engineer)
+
+Your title is now Lead AI/ML Engineer, so expect these.
+
+### Q71
+
+How do you decide whether to use:
+
+* Rules
+* Classical ML
+* Transformer
+* LLM
+
+---
+
+### Q72
+
+Describe a project failure.
+
+---
+
+### Q73
+
+How do you mentor junior engineers?
+
+---
+
+### Q74
+
+How do you estimate model ROI?
+
+---
+
+### Q75
+
+How would you justify GPU costs to management?
+
+---
+
+# Questions Most Likely To Be Asked From Your Resume
+
+If I were interviewing you, I'd definitely ask:
+
+1. Explain LoRA in detail.
+2. Explain RAG architecture end-to-end.
+3. Why Gemma-3?
+4. How did you generate 500K synthetic queries?
+5. How did you measure CTR improvement?
+6. DistilBERT vs BERT vs LLM.
+7. How does NER work internally?
+8. Explain self-attention mathematically.
+9. INT8 quantization implementation details.
+10. Design a multilingual query-understanding platform.
+
+If you can confidently answer these 10 topics, you'll be prepared for a large percentage of Senior AI/ML Engineer interviews at companies like Samsung Electronics, Google, Amazon, Microsoft, and similar AI product teams.
